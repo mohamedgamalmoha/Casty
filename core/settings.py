@@ -63,6 +63,8 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_spectacular',
 
+    # Custom apps
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -129,6 +131,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'accounts.User'
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -190,7 +194,8 @@ REST_FRAMEWORK = {
     ],
 
     # Schema
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.schemas.openapi.AutoSchema',
+    # 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.openapi.AutoSchema',
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 
     # Throttling
     'DEFAULT_THROTTLE_RATES': {

@@ -32,6 +32,9 @@ urlpatterns = [
     path('api/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path('api/json/', SpectacularJSONAPIView.as_view(), name='spec_json'),
+
+    # Custom Apps
+    path('api/', include('accounts.api.urls', namespace='accounts')),
 ]
 
 if settings.DEBUG:
