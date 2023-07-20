@@ -14,5 +14,5 @@ router.register(r'auth/users', UserViewSet, basename='user')
 urlpatterns = [
     path('auth/', include('djoser.urls.jwt'), name='jwt'),
     # re_path(r"^auth/social/(?P<provider>\S+)/$", ProviderAuthView.as_view(), name="social-auth-provider"),
-    path('', include(router.urls), name='routes'),
+    path('', include(router.urls), name='accounts_routes'),
 ]

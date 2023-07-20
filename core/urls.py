@@ -35,6 +35,7 @@ urlpatterns = [
 
     # Custom Apps
     path('api/', include('accounts.api.urls', namespace='accounts')),
+    path('api/', include('profiles.api.urls', namespace='profiles')),
 ]
 
 if settings.DEBUG:

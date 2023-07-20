@@ -64,7 +64,8 @@ INSTALLED_APPS = [
     'drf_spectacular',
 
     # Custom apps
-    'accounts'
+    'accounts',
+    'profiles'
 ]
 
 MIDDLEWARE = [
@@ -735,7 +736,7 @@ JAZZMIN_SETTINGS = {
         "auth": "fas fa-users-cog",
         "auth.Group": "fas fa-users",
         "accounts.user": "fas fa-user",
-        "accounts.profile": "fas fa-id-card",
+        "profiles.profile": "fas fa-id-card",
         # "info.aboutus": "fas fa-info",
         # "info.contactus": "fas fa-headset",
         # "info.cookiepolicy": "fas fa-cookie-bite",
@@ -777,7 +778,7 @@ JAZZMIN_SETTINGS = {
     # - carousel
     "changeform_format": "horizontal_tabs",
     # override change forms on a per modeladmin basis
-    "changeform_format_overrides": {"accounts.user": "carousel"},
+    "changeform_format_overrides": {"accounts.user": "carousel", "profiles.profile": "carousel"},
     # Add a language dropdown into the admin
     "language_chooser": True,
 }
