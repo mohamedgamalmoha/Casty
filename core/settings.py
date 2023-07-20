@@ -452,7 +452,7 @@ SPECTACULAR_SETTINGS = {
     # own depending on your requirements. For self-hosting, have a look at
     # the sidecar option in the README.
     'SWAGGER_UI_DIST': 'https://cdn.jsdelivr.net/npm/swagger-ui-dist@latest',
-    'SWAGGER_UI_FAVICON_HREF': '/static/images/logo.jpeg',
+    'SWAGGER_UI_FAVICON_HREF': '/static/images/logo_favicon.png',
     'REDOC_DIST': 'https://cdn.jsdelivr.net/npm/redoc@latest',
 
     # Append OpenAPI objects to path and components in addition to the generated objects
@@ -552,8 +552,8 @@ SPECTACULAR_SETTINGS = {
 
     # General schema metadata. Refer to spec for valid inputs
     # https://spec.openapis.org/oas/v3.0.3#openapi-object
-    'TITLE': 'Finder',
-    'DESCRIPTION': 'Finder API Endpoints',
+    'TITLE': 'Casty',
+    'DESCRIPTION': 'Casty API Endpoints',
     'TOS': None,
     # Optional: MAY contain "name", "url", "email"
     'CONTACT': {},
