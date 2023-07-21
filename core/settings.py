@@ -65,7 +65,8 @@ INSTALLED_APPS = [
 
     # Custom apps
     'accounts',
-    'profiles'
+    'profiles',
+    'agencies'
 ]
 
 MIDDLEWARE = [
@@ -680,7 +681,7 @@ JAZZMIN_SETTINGS = {
 
     # List of model admins to search from the search bar, search bar omitted if excluded
     # If you want to use a single search field you dont need to use a list, you can use a simple string
-    "search_model": ["auth.Group", "accounts.User", "accounts.profile"],
+    "search_model": ["auth.Group", "accounts.User", "profiles.profile"],
 
     # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
     "user_avatar": None,
@@ -737,6 +738,9 @@ JAZZMIN_SETTINGS = {
         "auth.Group": "fas fa-users",
         "accounts.user": "fas fa-user",
         "profiles.profile": "fas fa-id-card",
+        "profiles.language": "fas fa-globe-americas",
+        "profiles.skill": "fas fa-ribbon",
+        "agencies.agency": "far fa-building",
         # "info.aboutus": "fas fa-info",
         # "info.contactus": "fas fa-headset",
         # "info.cookiepolicy": "fas fa-cookie-bite",
@@ -778,7 +782,8 @@ JAZZMIN_SETTINGS = {
     # - carousel
     "changeform_format": "horizontal_tabs",
     # override change forms on a per modeladmin basis
-    "changeform_format_overrides": {"accounts.user": "carousel", "profiles.profile": "carousel"},
+    "changeform_format_overrides": {"accounts.user": "carousel", "profiles.profile": "carousel",
+                                    'agencies.agency': 'carousel'},
     # Add a language dropdown into the admin
     "language_chooser": True,
 }
