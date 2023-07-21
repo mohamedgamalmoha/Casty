@@ -10,7 +10,7 @@ from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListMode
 from rest_flex_fields import is_expanded
 from drf_spectacular.utils import extend_schema
 
-from accounts.api.permissions import IsUserWithProfile
+from accounts.api.permissions import IsModelUser
 from accounts.api.mixins import AllowAnyInSafeMethodOrCustomPermissionMixin
 from profiles.models import Skill, Language, Profile, SocialLink, PreviousExperience
 from .filters import ProfileFilter, PreviousExperienceFilter
@@ -33,7 +33,7 @@ class LanguageViewSet(ReadOnlyModelViewSet):
 class SocialLinkViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, ModelViewSet):
     queryset = SocialLink.objects.all()
     serializer_class = SocialLinkSerializer
-    permission_classes = [IsUserWithProfile]
+    permission_classes = [IsModelUser]
     save_method_permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
@@ -58,7 +58,7 @@ class PreviousExperienceViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, Mod
     queryset = PreviousExperience.objects.all()
     serializer_class = PreviousExperienceSerializer
     filterset_class = PreviousExperienceFilter
-    permission_classes = [IsUserWithProfile]
+    permission_classes = [IsModelUser]
     save_method_permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
@@ -84,7 +84,7 @@ class ProfileViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, RetrieveModelM
     queryset = Profile.objects.active()
     serializer_class = ProfileSerializer
     filterset_class = ProfileFilter
-    permission_classes = [IsUserWithProfile]
+    permission_classes = [IsModelUser]
     save_method_permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
