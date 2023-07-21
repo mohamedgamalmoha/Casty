@@ -1,0 +1,536 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-21 21:34+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: .\accounts\admin.py:16
+msgid "Personal info"
+msgstr "المعلومات الشخصية"
+
+#: .\accounts\admin.py:17
+msgid "Permissions"
+msgstr "الصلاحيات"
+
+#: .\accounts\admin.py:20
+msgid "Important dates"
+msgstr "التواريخ الهامة"
+
+#: .\accounts\admin.py:41
+#, python-format
+msgid "%d user was successfully deactivated."
+msgid_plural "%d users were successfully deactivated."
+msgstr[0] "%d تم تعطيل المستخدم بنجاح."
+msgstr[1] "%d تم تعطيل المستخدمين بنجاح."
+
+#: .\accounts\admin.py:49
+msgid "Deactivate selected Users"
+msgstr "تعطيل المستخدمين المحددين"
+
+#: .\accounts\admin.py:57
+#, python-format
+msgid "%d user was successfully activated."
+msgid_plural "%d users were successfully activated."
+msgstr[0] "%d تم تنشيط المستخدم بنجاح."
+msgstr[1] "%d تم تنشيط المستخدمين بنجاح."
+
+#: .\accounts\admin.py:65
+msgid "Activate selected Users"
+msgstr "تنشيط المستخدمين المحددين"
+
+#: .\accounts\apps.py:8
+msgid "Accounts"
+msgstr "الحسابات"
+
+#: .\accounts\enums.py:8
+msgid "Admin"
+msgstr "الادمن"
+
+#: .\accounts\enums.py:9
+msgid "Model"
+msgstr "مودل"
+
+#: .\accounts\enums.py:10
+msgid "Director"
+msgstr "المدير"
+
+#: .\accounts\enums.py:11 .\agencies\enums.py:13 .\profiles\enums.py:8
+#: .\profiles\enums.py:23 .\profiles\enums.py:38 .\profiles\enums.py:50
+msgid "Other"
+msgstr "آخر"
+
+#: .\accounts\models.py:14
+msgid "Role shouldn't be null or equal to Admin"
+msgstr "لا يجب أن يكون دور فارغًا أو يساوي المسؤول"
+
+#: .\accounts\models.py:32 .\agencies\models.py:68
+msgid "Email Address"
+msgstr "عنوان البريد الإلكتروني"
+
+#: .\accounts\models.py:34 .\profiles\models.py:187
+msgid "Role"
+msgstr "الدور"
+
+#: .\accounts\models.py:47 .\agencies\models.py:61 .\profiles\models.py:98
+msgid "User"
+msgstr "المستخدم"
+
+#: .\accounts\models.py:48
+msgid "Users"
+msgstr "المستخدمون"
+
+#: .\agencies\apps.py:8 .\agencies\models.py:95
+msgid "Agencies"
+msgstr "الوكالات"
+
+#: .\agencies\enums.py:6
+msgid "Film"
+msgstr "الأفلام"
+
+#: .\agencies\enums.py:7
+msgid "Cinema"
+msgstr "السينما"
+
+#: .\agencies\enums.py:8
+msgid "Fashion"
+msgstr "الأزياء"
+
+#: .\agencies\enums.py:9
+msgid "Television"
+msgstr "التلفزيون"
+
+#: .\agencies\enums.py:10
+msgid "Commercials"
+msgstr "الإعلانات التجارية"
+
+#: .\agencies\enums.py:11
+msgid "Theater"
+msgstr "المسرح"
+
+#: .\agencies\enums.py:12 .\agencies\enums.py:20
+msgid "Mixed"
+msgstr "مختلط"
+
+#: .\agencies\enums.py:17
+msgid "Models"
+msgstr "الموديلات"
+
+#: .\agencies\enums.py:18
+msgid "Actors"
+msgstr "الممثلين"
+
+#: .\agencies\enums.py:19
+msgid "Extras"
+msgstr "الممثلين الإضافيين"
+
+#: .\agencies\models.py:62 .\profiles\models.py:21 .\profiles\models.py:33
+msgid "Name"
+msgstr "الاسم"
+
+#: .\agencies\models.py:63
+msgid "About"
+msgstr "نبذة"
+
+#: .\agencies\models.py:64
+msgid "Since"
+msgstr "منذ"
+
+#: .\agencies\models.py:65
+msgid "Is Authorized"
+msgstr "مُصرّح به"
+
+#: .\agencies\models.py:69 .\profiles\models.py:112
+msgid "Phone Number 1"
+msgstr "رقم الهاتف 1"
+
+#: .\agencies\models.py:70 .\profiles\models.py:113
+msgid "Phone Number 2"
+msgstr "رقم الهاتف 2"
+
+#: .\agencies\models.py:73 .\profiles\models.py:116
+msgid "City"
+msgstr "المدينة"
+
+#: .\agencies\models.py:74 .\profiles\models.py:117
+msgid "Country"
+msgstr "البلد"
+
+#: .\agencies\models.py:75 .\profiles\models.py:118
+msgid "Address"
+msgstr "العنوان"
+
+#: .\agencies\models.py:77
+msgid "Latitude"
+msgstr "خط العرض"
+
+#: .\agencies\models.py:79
+msgid "Longitude"
+msgstr "خط الطول"
+
+#: .\agencies\models.py:83
+msgid "Service"
+msgstr "الخدمة"
+
+#: .\agencies\models.py:85
+msgid "Industry"
+msgstr "الصناعة"
+
+#: .\agencies\models.py:88 .\agencies\models.py:110 .\profiles\models.py:23
+#: .\profiles\models.py:35 .\profiles\models.py:148 .\profiles\models.py:167
+#: .\profiles\models.py:194
+msgid "Creation Date"
+msgstr "تاريخ الإنشاء"
+
+#: .\agencies\models.py:89 .\agencies\models.py:111 .\profiles\models.py:24
+#: .\profiles\models.py:36 .\profiles\models.py:149 .\profiles\models.py:168
+#: .\profiles\models.py:195
+msgid "Update Date"
+msgstr "تاريخ التحديث"
+
+#: .\agencies\models.py:94 .\agencies\models.py:100
+msgid "Agency"
+msgstr "وكالة"
+
+#: .\agencies\models.py:101 .\profiles\models.py:186
+msgid "Project Name"
+msgstr "اسم المشروع"
+
+#: .\agencies\models.py:102
+msgid "Client Name"
+msgstr "اسم العميل"
+
+#: .\agencies\models.py:103 .\profiles\models.py:188
+msgid "Description"
+msgstr "الوصف"
+
+#: .\agencies\models.py:104
+msgid "Success Story"
+msgstr "قصة نجاح"
+
+#: .\agencies\models.py:105 .\profiles\models.py:189
+msgid "Start Date"
+msgstr "تاريخ البدء"
+
+#: .\agencies\models.py:106 .\profiles\models.py:190
+msgid "End Date"
+msgstr "تاريخ الانتهاء"
+
+#: .\agencies\models.py:107 .\profiles\models.py:191
+msgid "If the project is ongoing, the end_date can be null"
+msgstr "إذا كان المشروع قيد التنفيذ، يمكن أن يكون تاريخ الانتهاء فارغًا"
+
+#: .\agencies\models.py:108 .\profiles\models.py:165 .\profiles\models.py:192
+msgid "Active"
+msgstr "نشط"
+
+#: .\agencies\models.py:109 .\profiles\models.py:193
+msgid "Designates whether experience is viewed at the profile"
+msgstr "يحدد ما إذا كان يتم عرض التجربة في الملف الشخصي"
+
+#: .\agencies\models.py:114
+msgid "Previous Work"
+msgstr "العمل السابق"
+
+#: .\agencies\models.py:115
+msgid "Previous Works"
+msgstr "الأعمال السابقة"
+
+#: .\core\settings.py:795
+msgid "English"
+msgstr "الإنجليزية"
+
+#: .\core\settings.py:796
+msgid "Arabic"
+msgstr "العربية"
+
+#: .\profiles\admin.py:9
+msgid "Age"
+msgstr "العمر"
+
+#: .\profiles\admin.py:14
+msgid "Under Aage"
+msgstr "أقل من سن العاشرة"
+
+#: .\profiles\admin.py:15
+msgid "In the twenties"
+msgstr "في العشرينات"
+
+#: .\profiles\admin.py:16
+msgid "In the thirties"
+msgstr "في الثلاثينات"
+
+#: .\profiles\admin.py:17
+msgid "In the forties"
+msgstr "في الأربعينات"
+
+#: .\profiles\admin.py:18
+msgid "In the fifties"
+msgstr "في الخمسينات"
+
+#: .\profiles\admin.py:19
+msgid "In the sixties"
+msgstr "في الستينات"
+
+#: .\profiles\admin.py:20
+msgid "In the seventies"
+msgstr "في السبعينات"
+
+#: .\profiles\apps.py:8 .\profiles\models.py:158
+msgid "Profiles"
+msgstr "الملفات الشخصية"
+
+#: .\profiles\enums.py:6
+msgid "Male"
+msgstr "ذكر"
+
+#: .\profiles\enums.py:7
+msgid "Female"
+msgstr "أنثى"
+
+#: .\profiles\enums.py:12
+msgid "Caucasian / White"
+msgstr "قوقازي / أبيض"
+
+#: .\profiles\enums.py:13
+msgid "African / Black"
+msgstr "أفريقي / أسود"
+
+#: .\profiles\enums.py:14
+msgid "Asian"
+msgstr "آسيوي"
+
+#: .\profiles\enums.py:15
+msgid "Hispanic / Latinx"
+msgstr "هسباني / لاتيني"
+
+#: .\profiles\enums.py:16
+msgid "Native"
+msgstr "أصلي"
+
+#: .\profiles\enums.py:17
+msgid "American / Indigenous"
+msgstr "أمريكي / أصلي"
+
+#: .\profiles\enums.py:18
+msgid "Middle Eastern"
+msgstr "شرق أوسطي"
+
+#: .\profiles\enums.py:19
+msgid "Eastern"
+msgstr "شرقي"
+
+#: .\profiles\enums.py:20
+msgid "Pacific"
+msgstr "هادئ"
+
+#: .\profiles\enums.py:21
+msgid "Islander"
+msgstr "جزري"
+
+#: .\profiles\enums.py:22
+msgid "Mixed / Multiracial"
+msgstr "مختلط / متعدد العرقيات"
+
+#: .\profiles\enums.py:27 .\profiles\enums.py:42
+msgid "Black"
+msgstr "أسود"
+
+#: .\profiles\enums.py:28
+msgid "Brown (Light, Medium, Dark)"
+msgstr "بني (فاتح، متوسط، غامق)"
+
+#: .\profiles\enums.py:29
+msgid "Blonde (Light, Medium, Dark)"
+msgstr "أشقر (فاتح، متوسط، غامق)"
+
+#: .\profiles\enums.py:30
+msgid "Red"
+msgstr "أحمر"
+
+#: .\profiles\enums.py:31
+msgid "Auburn"
+msgstr "أحمر داكن"
+
+#: .\profiles\enums.py:32
+msgid "Brunette"
+msgstr "بني"
+
+#: .\profiles\enums.py:33
+msgid "Chestnut"
+msgstr "كستنائي"
+
+#: .\profiles\enums.py:34
+msgid "Sandy"
+msgstr "رملي"
+
+#: .\profiles\enums.py:35
+msgid "Gray / Silver"
+msgstr "رمادي / فضي"
+
+#: .\profiles\enums.py:36
+msgid "White"
+msgstr "أبيض"
+
+#: .\profiles\enums.py:37
+msgid "Bald"
+msgstr "أصلع"
+
+#: .\profiles\enums.py:43
+msgid "Brown"
+msgstr "بني"
+
+#: .\profiles\enums.py:44
+msgid "Blue"
+msgstr "أزرق"
+
+#: .\profiles\enums.py:45
+msgid "Green"
+msgstr "أخضر"
+
+#: .\profiles\enums.py:46
+msgid "Hazel"
+msgstr "بندقي"
+
+#: .\profiles\enums.py:47
+msgid "Gray"
+msgstr "رمادي"
+
+#: .\profiles\enums.py:48
+msgid "Amber"
+msgstr "عنبري"
+
+#: .\profiles\enums.py:49
+msgid "Violet"
+msgstr "بنفسجي"
+
+#: .\profiles\models.py:22
+msgid "Is Active"
+msgstr "نشط"
+
+#: .\profiles\models.py:27
+msgid "Skill"
+msgstr "مهارة"
+
+#: .\profiles\models.py:28 .\profiles\models.py:103
+msgid "Skills"
+msgstr "المهارات"
+
+#: .\profiles\models.py:34
+msgid "Code"
+msgstr "الكود"
+
+#: .\profiles\models.py:39
+msgid "Language"
+msgstr "اللغة"
+
+#: .\profiles\models.py:40 .\profiles\models.py:104
+msgid "Languages"
+msgstr "اللغات"
+
+#: .\profiles\models.py:99
+msgid "Is Public"
+msgstr "عام"
+
+#: .\profiles\models.py:102
+msgid "Bio"
+msgstr "السيرة الذاتية"
+
+#: .\profiles\models.py:106
+msgid "Gender"
+msgstr "الجنس"
+
+#: .\profiles\models.py:108
+msgid "Race"
+msgstr "العرق"
+
+#: .\profiles\models.py:109
+msgid "Date of Birth"
+msgstr "تاريخ الميلاد"
+
+#: .\profiles\models.py:122
+msgid "Travel Inboard"
+msgstr "السفر داخل البلاد"
+
+#: .\profiles\models.py:123
+msgid "Willingness to travel inboard / locally"
+msgstr "الاستعداد للسفر داخل البلاد / محليًا"
+
+#: .\profiles\models.py:125
+msgid "Travel outboard "
+msgstr "السفر خارج البلاد"
+
+#: .\profiles\models.py:126
+msgid "Willingness to travel outboard / globally"
+msgstr "الاستعداد للسفر خارج البلاد / عالميًا"
+
+#: .\profiles\models.py:129
+msgid "Days Away"
+msgstr "عدد الأيام بعيدًا عن المنزل"
+
+#: .\profiles\models.py:130
+msgid "How many days can you stay away from home?"
+msgstr "كم يومًا يمكنك البقاء بعيدًا عن المنزل؟"
+
+#: .\profiles\models.py:134
+msgid "Height"
+msgstr "الطول"
+
+#: .\profiles\models.py:137
+msgid "Weight"
+msgstr "الوزن"
+
+#: .\profiles\models.py:139
+msgid "Hair Color"
+msgstr "لون الشعر"
+
+#: .\profiles\models.py:141
+msgid "Eye Color"
+msgstr "لون العين"
+
+#: .\profiles\models.py:144
+msgid "Image"
+msgstr "الصورة"
+
+#: .\profiles\models.py:145
+msgid "Cover Image"
+msgstr "صورة الغلاف"
+
+#: .\profiles\models.py:157 .\profiles\models.py:163 .\profiles\models.py:184
+msgid "Profile"
+msgstr "الملف الشخصي"
+
+#: .\profiles\models.py:164
+msgid "Link"
+msgstr "الرابط"
+
+#: .\profiles\models.py:166
+msgid "Designates whether this link is viewed at the profile"
+msgstr "يحدد ما إذا كان يتم عرض هذا الرابط في الملف الشخصي"
+
+#: .\profiles\models.py:171 .\profiles\models.py:198
+msgid "Social Link"
+msgstr "الرابط الاجتماعي"
+
+#: .\profiles\models.py:172 .\profiles\models.py:199
+msgid "Social Links"
+msgstr "الروابط الاجتماعية"
+
+#: .\profiles\models.py:185
+msgid "Company Name"
+msgstr "اسم الشركة"
+
