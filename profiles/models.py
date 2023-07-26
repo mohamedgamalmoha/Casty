@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
 from django.utils.timezone import localdate
@@ -27,6 +27,9 @@ class Skill(models.Model):
         verbose_name = _('Skill')
         verbose_name_plural = _('Skills')
         ordering = ['-create_at', '-update_at']
+        
+    def __str__(self):
+        return str(self.name)
 
 
 class Language(models.Model):
@@ -39,6 +42,9 @@ class Language(models.Model):
         verbose_name = _('Language')
         verbose_name_plural = _('Languages')
         ordering = ['-create_at', '-update_at']
+
+    def __str__(self):
+        return str(self.name)
 
 
 class ModelUserManager(CustomUserManager):
@@ -100,8 +106,8 @@ class Profile(models.Model):
 
     # Personal Details
     bio = models.TextField(null=True, blank=True, verbose_name=_('Bio'))
-    skills = models.ManyToManyField(Skill, verbose_name=_('Skills'))
-    languages = models.ManyToManyField(Language, verbose_name=_('Languages'))
+    skills = models.ManyToManyField(Skill, blank=True, verbose_name=_('Skills'))
+    languages = models.ManyToManyField(Language, blank=True, verbose_name=_('Languages'))
     gender = models.PositiveSmallIntegerField(choices=GenderChoices.choices, default=GenderChoices.MALE, null=True,
                                               blank=True, verbose_name=_('Gender'))
     race = models.PositiveSmallIntegerField(choices=RaceChoices.choices, default=RaceChoices.OTHER, null=True,
@@ -200,7 +206,18 @@ class PreviousExperience(models.Model):
         ordering = ('-create_at', '-update_at')
 
 
-@receiver(post_save, sender=ModelUser)
+@receiver(post_save, sender=User)
 def create_model_profile(sender, instance, created, *args, **kwargs):
     if created and instance and instance.role == RoleChoices.MODEL:
         instance.profile = Profile.objects.create(user=instance)
+
+
+@receiver(pre_delete, sender=Profile)
+def delete_model_photos(sender, instance, *args, **kwargs):
+    image = instance.image
+    if image:
+        image.delete(save=False)
+
+    cover = instance.cover
+    if cover:
+        cover.delete(save=False)
