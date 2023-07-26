@@ -116,7 +116,7 @@ class PreviousWork(models.Model):
         ordering = ('-create_at', '-update_at')
 
 
-@receiver(post_save, sender=DirectorUser)
+@receiver(post_save, sender=User)
 def create_director_agency(sender, instance, created, *args, **kwargs):
     if created and instance and instance.role == RoleChoices.DIRECTOR:
         instance.agency = Agency.objects.create(user=instance)
