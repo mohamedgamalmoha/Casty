@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
 from django.utils.timezone import localdate
@@ -122,7 +122,30 @@ class PreviousWork(models.Model):
         ordering = ('-create_at', '-update_at')
 
 
+class AgencyImage(models.Model):
+    agency = models.ForeignKey(Agency, on_delete=models.CASCADE, related_name='images', verbose_name=_('Agency'))
+    image = models.ImageField(null=True, blank=True, upload_to='images/', verbose_name=_('Image'))
+    is_active = models.BooleanField(default=True, blank=True, verbose_name=_('Active'),
+                                    help_text=_('Designates whether images is viewed at the profile'))
+    create_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation Date'))
+    update_at = models.DateTimeField(auto_now=True, verbose_name=_('Update Date'))
+
+    MAXIMUM_NUMBER = 10
+
+    class Meta:
+        verbose_name = _('Agency Image')
+        verbose_name_plural = _('Agency Images')
+        ordering = ('-create_at', '-update_at')
+
+
 @receiver(post_save, sender=User)
 def create_director_agency(sender, instance, created, *args, **kwargs):
     if created and instance and instance.role == RoleChoices.DIRECTOR:
         instance.agency = Agency.objects.create(user=instance)
+
+
+@receiver(pre_delete, sender=AgencyImage)
+def delete_agency_photos(sender, instance, *args, **kwargs):
+    image = instance.image
+    if image:
+        image.delete(save=False)

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Agency, PreviousWork
+from .models import Agency, PreviousWork, AgencyImage
 
 
 class PreviousWorkInline(admin.TabularInline):
@@ -12,11 +12,19 @@ class PreviousWorkInline(admin.TabularInline):
     can_delete = False
 
 
+class AgencyImageInlineAdmin(admin.TabularInline):
+    model = AgencyImage
+    readonly_fields = ('image', 'create_at', 'update_at')
+    extra = 0
+    min_num = 0
+    can_delete = False
+
+
 class AgencyAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_authorized', 'create_at', 'update_at')
     readonly_fields = ('create_at', 'update_at')
     list_filter = ('is_authorized', 'service', 'industry')
-    inlines = [PreviousWorkInline]
+    inlines = [PreviousWorkInline, AgencyImageInlineAdmin]
     fieldsets = (
         ('Agency Main Info', {'fields': (
             'user', 'name', 'about', 'since', 'is_authorized'

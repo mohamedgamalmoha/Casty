@@ -1,9 +1,10 @@
 from django.contrib.auth.backends import get_user_model
+from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers
 from rest_flex_fields import FlexFieldsModelSerializer
 
-from agencies.models import Agency, PreviousWork
+from agencies.models import Agency, PreviousWork, AgencyImage
 
 
 User = get_user_model()
@@ -46,3 +47,20 @@ class AgencySerializer(FlexFieldsModelSerializer):
 
     def get_followers_agencies_count(self, instance) -> int:
         return instance.follower_agencies.count()
+
+
+class AgencyImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AgencyImage
+        exclude = ()
+        read_only_fields = ('id', 'profile', 'create_at', 'update_at')
+
+    def validate(self, attrs):
+        request = self.context['request']
+        if request.method == 'POST':
+            if AgencyImage.objects.filter(profile=request.user.agency).count() >= AgencyImage.MAXIMUM_NUMBER:
+                raise serializers.ValidationError(
+                    _('You have reached the maximum number of images that could be created')
+                )
+        return attrs

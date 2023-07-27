@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
-from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListModelMixin
+from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListModelMixin, DestroyModelMixin
 
 from rest_flex_fields import is_expanded
 from drf_spectacular.utils import extend_schema
@@ -14,9 +14,9 @@ from drf_spectacular.utils import extend_schema
 from profiles.models import Profile
 from accounts.api.permissions import IsDirectorUser
 from accounts.api.mixins import AllowAnyInSafeMethodOrCustomPermissionMixin
-from agencies.models import Agency, PreviousWork
+from agencies.models import Agency, PreviousWork, AgencyImage
 from .filters import AgencyFilter, PreviousWorkFilter
-from .serializers import AgencySerializer, PreviousWorkSerializer
+from .serializers import AgencySerializer, PreviousWorkSerializer, AgencyImageSerializer
 
 
 class PreviousWorkViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, ModelViewSet):
@@ -116,4 +116,29 @@ class AgencyViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, RetrieveModelMi
         elif request.method == 'DELETE':
             agency.following_agencies.remove(following_profile)
             return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+class ProfileImageViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, UpdateModelMixin, ListModelMixin,
+                          DestroyModelMixin, GenericViewSet):
+    queryset = AgencyImage.objects.filter(is_active=True)
+    serializer_class = AgencyImageSerializer
+    permission_classes = [IsDirectorUser]
+    save_method_permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user = self.request.user
+        if self.action == 'me' and hasattr(user, 'agency'):
+            queryset = queryset.filter(agency=user.agency)
+        return queryset
+
+    def perform_create(self, serializer):
+        serializer.save(agency=self.request.user.agency)
+
+    @extend_schema(responses={200: AgencyImageSerializer(many=True)})
+    @action(detail=False, methods=["GET"], name='Get My Images')
+    def me(self, request, *args, **kwargs):
+        if request.method == "GET":
+            return self.list(request, *args, **kwargs)
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
