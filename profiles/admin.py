@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
 from .mixins import AdminQueryset
-from .models import Skill, Language, Profile, SocialLink, PreviousExperience
+from .models import Skill, Language, Profile, SocialLink, PreviousExperience, ProfileImage
 
 
 class AgeProfileListFilter(admin.SimpleListFilter):
@@ -45,6 +45,14 @@ class PreviousExperienceInlineAdmin(admin.TabularInline):
     can_delete = False
 
 
+class ProfileImageInlineAdmin(admin.TabularInline):
+    model = ProfileImage
+    readonly_fields = ('image', 'create_at', 'update_at')
+    extra = 0
+    min_num = 0
+    can_delete = False
+
+
 class SkillAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_active', 'create_at', 'update_at')
     list_filter = ('is_active',)
@@ -81,13 +89,16 @@ class ProfileAdmin(AdminQueryset, admin.ModelAdmin):
             ('image', ),
             ('cover', ),
         )}),
+        ('Following', {'fields': (
+            'following_models', 'following_agencies'
+        )}),
         ('Dates', {'fields': (
            'create_at', 'update_at'
         )}),
     )
     list_per_page = 20
     queryset = Profile.objects.all()
-    inlines = [SocialLinkInlineAdmin, PreviousExperienceInlineAdmin]
+    inlines = [SocialLinkInlineAdmin, PreviousExperienceInlineAdmin, ProfileImageInlineAdmin]
 
 
 admin.site.register(Skill, SkillAdmin)
