@@ -119,8 +119,8 @@ class AgencyViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, RetrieveModelMi
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
-class ProfileImageViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, UpdateModelMixin, ListModelMixin,
-                          DestroyModelMixin, GenericViewSet):
+class AgencyImageViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, UpdateModelMixin, ListModelMixin,
+                         DestroyModelMixin, GenericViewSet):
     queryset = AgencyImage.objects.filter(is_active=True)
     serializer_class = AgencyImageSerializer
     permission_classes = [IsDirectorUser]
