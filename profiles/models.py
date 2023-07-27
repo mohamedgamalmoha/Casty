@@ -209,6 +209,22 @@ class PreviousExperience(models.Model):
         ordering = ('-create_at', '-update_at')
 
 
+class ProfileImage(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='images', verbose_name=_('Profile'))
+    image = models.ImageField(null=True, blank=True, upload_to='images/', verbose_name=_('Image'))
+    is_active = models.BooleanField(default=True, blank=True, verbose_name=_('Active'),
+                                    help_text=_('Designates whether images is viewed at the profile'))
+    create_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation Date'))
+    update_at = models.DateTimeField(auto_now=True, verbose_name=_('Update Date'))
+
+    MAXIMUM_NUMBER = 5
+
+    class Meta:
+        verbose_name = _('Profile Image')
+        verbose_name_plural = _('Profile Images')
+        ordering = ('-create_at', '-update_at')
+
+
 @receiver(post_save, sender=User)
 def create_model_profile(sender, instance, created, *args, **kwargs):
     if created and instance and instance.role == RoleChoices.MODEL:
@@ -224,3 +240,10 @@ def delete_model_photos(sender, instance, *args, **kwargs):
     cover = instance.cover
     if cover:
         cover.delete(save=False)
+
+
+@receiver(pre_delete, sender=ProfileImage)
+def delete_profile_photos(sender, instance, *args, **kwargs):
+    image = instance.image
+    if image:
+        image.delete(save=False)

@@ -1,10 +1,11 @@
 from django.contrib.auth.backends import get_user_model
+from django.utils.translation import gettext_lazy as _
 
 from rest_framework import serializers
 from rest_flex_fields import FlexFieldsModelSerializer
 
 from profiles.enums import GenderChoices
-from profiles.models import Skill, Language, Profile, SocialLink, PreviousExperience
+from profiles.models import Skill, Language, Profile, SocialLink, PreviousExperience, ProfileImage
 
 
 User = get_user_model()
@@ -58,7 +59,8 @@ class ProfileSerializer(FlexFieldsModelSerializer):
                                                                        'omit': ['profile']}),
             'following': ('profiles.api.serializers.ProfileSerializer', {'many': True, 'read_only': True}),
             'links': ('profiles.api.serializers.SocialLinkSerializer', {'many': True, 'read_only': True}),
-            'experiences': ('profiles.api.serializers.PreviousExperienceSerializer', {'many': True, 'read_only': True})
+            'experiences': ('profiles.api.serializers.PreviousExperienceSerializer', {'many': True, 'read_only': True}),
+            'images':  ('profiles.api.serializers.ProfileImageSerializer', {'many': True, 'read_only': True})
         }
 
     def to_representation(self, instance):
@@ -82,3 +84,20 @@ class ProfileSerializer(FlexFieldsModelSerializer):
 
     def get_followers_count(self, instance) -> int:
         return instance.followers.count()
+
+
+class ProfileImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProfileImage
+        exclude = ()
+        read_only_fields = ('id', 'profile', 'create_at', 'update_at')
+
+    def validate(self, attrs):
+        request = self.context['request']
+        if request.method == 'POST':
+            if ProfileImage.objects.filter(profile=request.user.profile).count() >= ProfileImage.MAXIMUM_NUMBER:
+                raise serializers.ValidationError(
+                    _('You have reached the maximum number of images that could be created')
+                )
+        return attrs
