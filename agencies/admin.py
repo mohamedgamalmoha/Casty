@@ -30,6 +30,9 @@ class AgencyAdmin(admin.ModelAdmin):
         ('Services Offered', {'fields': (
             'service', 'industry'
         )}),
+        ('Following', {'fields': (
+            'following_models', 'following_agencies'
+        )}),
         ('Dates', {'fields': (
             'create_at', 'update_at'
         )}),

@@ -64,6 +64,12 @@ class Agency(models.Model):
     since = models.DateField(null=True, blank=True, verbose_name=_('Since'))
     is_authorized = models.BooleanField(null=True, blank=True, default=False, verbose_name=_('Is Authorized'))
 
+    # Following
+    following_models = models.ManyToManyField('profiles.Profile', blank=True, related_name='follower_models',
+                                              verbose_name=_('Following Models'))
+    following_agencies = models.ManyToManyField('self', blank=True, related_name='follower_agencies',
+                                                verbose_name=_('Following Agencies'))
+
     # Contact Information
     email = models.EmailField(null=True, blank=True, verbose_name=_('Email Address'))
     phone_number_1 = PhoneNumberField(null=True, blank=True, verbose_name=_('Phone Number 1'))
