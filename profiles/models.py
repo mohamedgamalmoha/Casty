@@ -104,6 +104,9 @@ class Profile(models.Model):
     user = models.OneToOneField(ModelUser, on_delete=models.CASCADE, related_name='profile', verbose_name=_('User'))
     is_public = models.BooleanField(null=True, blank=True, default=True, verbose_name=_('Is Public'))
 
+    # Following
+    following = models.ManyToManyField('self', blank=True, related_name='followers', verbose_name=_('Following'))
+
     # Personal Details
     bio = models.TextField(null=True, blank=True, verbose_name=_('Bio'))
     skills = models.ManyToManyField(Skill, blank=True, verbose_name=_('Skills'))

@@ -45,14 +45,18 @@ class PreviousExperienceSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(FlexFieldsModelSerializer):
     age = serializers.IntegerField(read_only=True)
+    following_count = serializers.SerializerMethodField()
+    followers_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Profile
         exclude = ()
-        read_only_fields = ('id', 'user', 'create_at', 'update_at', 'age')
+        read_only_fields = ('id', 'user', 'following',  'create_at', 'update_at', 'following_count', 'followers_count',
+                            'age')
         expandable_fields = {
             'user': ('accounts.api.serializers.CustomUserSerializer', {'many': False, 'read_only': True,
                                                                        'omit': ['profile']}),
+            'following': ('profiles.api.serializers.ProfileSerializer', {'many': True, 'read_only': True}),
             'links': ('profiles.api.serializers.SocialLinkSerializer', {'many': True, 'read_only': True}),
             'experiences': ('profiles.api.serializers.PreviousExperienceSerializer', {'many': True, 'read_only': True})
         }
@@ -72,3 +76,9 @@ class ProfileSerializer(FlexFieldsModelSerializer):
             data['cover'] = '/static/images/profile_cover.jpg'
 
         return data
+
+    def get_following_count(self, instance) -> int:
+        return instance.following.count()
+
+    def get_followers_count(self, instance) -> int:
+        return instance.followers.count()

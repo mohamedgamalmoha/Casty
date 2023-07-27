@@ -119,3 +119,24 @@ class ProfileViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, RetrieveModelM
         elif request.method == "PATCH":
             return self.partial_update(request, *args, **kwargs)
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    @extend_schema(request=None, responses={status.HTTP_200_OK: None, status.HTTP_204_NO_CONTENT: None,
+                                            status.HTTP_405_METHOD_NOT_ALLOWED: None},
+                   description="Follow / Unfollow other profiles\n"
+                               "\t-200: The following is added successfully.\n"
+                               "\t-204: The following is deleted successfully.\n"
+                               "\t-400: The following is canceled cause the tow profiles were the same.\n"
+                               "\t-405: Http method is not allowed.\n")
+    @action(detail=True, methods=['POST', 'DELETE'], name='follow')
+    def follow(self, request, pk=None):
+        profile = request.user.profile
+        following_profile = self.get_object()
+        if profile == following_profile:
+            return Response({'error': 'Follow your own profile is not allowed'}, status=status.HTTP_400_BAD_REQUEST)
+        if request.method == 'POST':
+            profile.following.add(following_profile)
+            return Response(status=status.HTTP_200_OK)
+        elif request.method == 'DELETE':
+            profile.following.remove(following_profile)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
