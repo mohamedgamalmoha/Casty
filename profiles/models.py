@@ -8,11 +8,11 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 from phonenumber_field.modelfields import PhoneNumberField
 
+from agencies.models import Agency
 from accounts.enums import RoleChoices
 from accounts.models import CustomUserManager
 from .utils import get_hostname_from_url
 from .enums import GenderChoices, RaceChoices, HairColorChoices, EyeColorChoices
-
 
 User = get_user_model()
 
@@ -27,7 +27,7 @@ class Skill(models.Model):
         verbose_name = _('Skill')
         verbose_name_plural = _('Skills')
         ordering = ['-create_at', '-update_at']
-        
+
     def __str__(self):
         return str(self.name)
 
@@ -55,7 +55,6 @@ class ModelUserManager(CustomUserManager):
 
 
 class ModelUser(User):
-
     base_role = RoleChoices.MODEL
 
     student = ModelUserManager()
@@ -105,7 +104,10 @@ class Profile(models.Model):
     is_public = models.BooleanField(null=True, blank=True, default=True, verbose_name=_('Is Public'))
 
     # Following
-    following = models.ManyToManyField('self', blank=True, related_name='followers', verbose_name=_('Following'))
+    following_models = models.ManyToManyField('self', blank=True, related_name='follower_models',
+                                              verbose_name=_('Following Models'))
+    following_agencies = models.ManyToManyField(Agency, blank=True, related_name='follower_agencies',
+                                                verbose_name=_('Following Agencies'))
 
     # Personal Details
     bio = models.TextField(null=True, blank=True, verbose_name=_('Bio'))
@@ -190,7 +192,8 @@ class SocialLink(models.Model):
 
 
 class PreviousExperience(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='experiences', verbose_name=_('Profile'))
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='experiences',
+                                verbose_name=_('Profile'))
     company_name = models.CharField(max_length=255, verbose_name=_('Company Name'))
     project_name = models.CharField(max_length=100, verbose_name=_('Project Name'))
     role = models.CharField(max_length=100, verbose_name=_('Role'))

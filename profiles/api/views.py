@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import get_object_or_404
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -10,6 +11,7 @@ from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListMode
 from rest_flex_fields import is_expanded
 from drf_spectacular.utils import extend_schema
 
+from agencies.models import Agency
 from accounts.api.permissions import IsModelUser
 from accounts.api.mixins import AllowAnyInSafeMethodOrCustomPermissionMixin
 from profiles.models import Skill, Language, Profile, SocialLink, PreviousExperience, ProfileImage
@@ -131,17 +133,35 @@ class ProfileViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, RetrieveModelM
                                "\t-204: The following is deleted successfully.\n"
                                "\t-400: The following is canceled cause the tow profiles were the same.\n"
                                "\t-405: Http method is not allowed.\n")
-    @action(detail=True, methods=['POST', 'DELETE'], name='follow')
-    def follow(self, request, pk=None):
+    @action(detail=True, methods=['POST', 'DELETE'], name='Follow Model', url_path='follow-model')
+    def follow_model(self, request, pk=None):
         profile = request.user.profile
         following_profile = self.get_object()
         if profile == following_profile:
             return Response({'error': 'Follow your own profile is not allowed'}, status=status.HTTP_400_BAD_REQUEST)
         if request.method == 'POST':
-            profile.following.add(following_profile)
+            profile.following_models.add(following_profile)
             return Response(status=status.HTTP_200_OK)
         elif request.method == 'DELETE':
-            profile.following.remove(following_profile)
+            profile.following_models.remove(following_profile)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    @extend_schema(request=None, responses={status.HTTP_200_OK: None, status.HTTP_204_NO_CONTENT: None,
+                                            status.HTTP_405_METHOD_NOT_ALLOWED: None},
+                   description="Follow / Unfollow other profiles\n"
+                               "\t-200: The following is added successfully.\n"
+                               "\t-204: The following is deleted successfully.\n"
+                               "\t-405: Http method is not allowed.\n")
+    @action(detail=True, methods=['POST', 'DELETE'], name='Follow Agency', url_path='follow-agency')
+    def follow_agency(self, request, pk=None):
+        profile = request.user.profile
+        following_profile = get_object_or_404(Agency, id=pk)
+        if request.method == 'POST':
+            profile.following_agencies.add(following_profile)
+            return Response(status=status.HTTP_200_OK)
+        elif request.method == 'DELETE':
+            profile.following_agencies.remove(following_profile)
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
