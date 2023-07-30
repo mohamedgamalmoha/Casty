@@ -1,9 +1,8 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
-from accounts.enums import RoleChoices
-from accounts.utils import is_non_admin_user
 from agencies.models import Agency
 from profiles.models import Profile
+from accounts.utils import is_non_admin_user, is_model_user, is_director_model
 
 
 class ReadOnly(BasePermission):
@@ -16,7 +15,7 @@ class IsModelUser(BasePermission):
 
     def has_permission(self, request, view) -> bool:
         user = request.user
-        return user.is_authenticated and user.role == RoleChoices.MODEL
+        return user.is_authenticated and is_model_user(user)
 
     def has_object_permission(self, request, view, obj) -> bool:
         if isinstance(obj, Profile):
@@ -31,7 +30,7 @@ class IsDirectorUser(BasePermission):
 
     def has_permission(self, request, view) -> bool:
         user = request.user
-        return user.is_authenticated and user.role == RoleChoices.DIRECTOR
+        return user.is_authenticated and is_director_model(user)
 
     def has_object_permission(self, request, view, obj) -> bool:
         if isinstance(obj, Agency):
