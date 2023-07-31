@@ -18,8 +18,8 @@ class ProfileFilter(filters.FilterSet):
     class Meta:
         model = Profile
         exclude = ('user', 'image', 'cover', 'create_at', 'update_at')
-        fields = ('is_public', 'skills', 'languages', 'gender', 'race', 'travel_inboard', 'travel_outboard',
-                  'days_away', 'height', 'weight', 'hair', 'eye', 'search')
+        fields = ('is_public', 'skills', 'model_class', 'languages', 'gender', 'race', 'travel_inboard',
+                  'travel_outboard', 'days_away', 'height', 'weight', 'hair', 'eye', 'search')
 
 
 class PreviousExperienceFilter(filters.FilterSet):

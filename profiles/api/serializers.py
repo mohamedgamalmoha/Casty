@@ -54,8 +54,8 @@ class ProfileSerializer(FlexFieldsModelSerializer):
     class Meta:
         model = Profile
         exclude = ()
-        read_only_fields = ('id', 'user', 'following_models', 'following_agencies', 'create_at', 'update_at',
-                            'following_models_count',  'followers_models_count', 'following_agencies_count',
+        read_only_fields = ('id', 'user', 'model_class', 'following_models', 'following_agencies', 'create_at',
+                            'update_at', 'following_models_count',  'followers_models_count', 'following_agencies_count',
                             'followers_agencies_count', 'age')
         expandable_fields = {
             'user': ('accounts.api.serializers.CustomUserSerializer', {'many': False, 'read_only': True,

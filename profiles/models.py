@@ -12,7 +12,8 @@ from agencies.models import Agency
 from accounts.enums import RoleChoices
 from accounts.models import CustomUserManager
 from .utils import get_hostname_from_url
-from .enums import GenderChoices, RaceChoices, HairColorChoices, EyeColorChoices
+from .enums import GenderChoices, RaceChoices, HairColorChoices, EyeColorChoices, ClassChoices
+
 
 User = get_user_model()
 
@@ -102,6 +103,8 @@ class ProfileManager(models.Manager):
 class Profile(models.Model):
     user = models.OneToOneField(ModelUser, on_delete=models.CASCADE, related_name='profile', verbose_name=_('User'))
     is_public = models.BooleanField(null=True, blank=True, default=True, verbose_name=_('Is Public'))
+    model_class = models.PositiveSmallIntegerField(choices=ClassChoices.choices, default=GenderChoices.OTHER, null=True,
+                                                   blank=True, verbose_name=_('Model Class'))
 
     # Following
     following_models = models.ManyToManyField('self', blank=True, related_name='follower_models',

@@ -48,3 +48,12 @@ class EyeColorChoices(models.IntegerChoices):
     AMBER = 6, _('Amber')
     VIOLET = 7, _('Violet')
     OTHER = 8, _('Other')
+
+
+class ClassChoices(models.IntegerChoices):
+    A = 0, _('A')
+    B = 1, _('B')
+    C = 2, _('C')
+    FL = 3, _('Foreign Looking')
+    F = 4, _('Foreign')
+    OTHER = 5, _('Indeterminate')

@@ -66,12 +66,12 @@ class ProfileAdmin(AdminQueryset, admin.ModelAdmin):
     list_display = ['user', 'create_at', 'update_at']
     search_fields = ['user__first_name', 'user__last_name', 'user__username', 'user__email', 'bio']
     date_hierarchy = 'create_at'
-    list_filter = ['is_public', 'gender', AgeProfileListFilter, 'race', 'travel_inboard', 'travel_outboard', 'hair',
-                   'eye']
+    list_filter = ['is_public', 'model_class', 'gender', AgeProfileListFilter, 'race', 'travel_inboard',
+                   'travel_outboard', 'hair', 'eye']
     readonly_fields = ['user', 'create_at', 'update_at']
     fieldsets = (
         ('User Main Info', {'fields': (
-            'user', 'bio', 'is_public', 'skills', 'languages', 'gender', 'race', 'date_of_birth'
+            'user', 'bio', 'is_public', 'model_class', 'skills', 'languages', 'gender', 'race', 'date_of_birth'
         )}),
         ('Contact Information', {'fields': (
             ('phone_number_1', 'phone_number_2'),
