@@ -25,9 +25,9 @@ class DirectorUserManager(CustomUserManager):
 
 class DirectorUser(User):
 
-    base_role = RoleChoices.MODEL
+    base_role = RoleChoices.DIRECTOR
 
-    student = DirectorUserManager()
+    objects = DirectorUserManager()
 
     class Meta:
         proxy = True
@@ -58,7 +58,7 @@ class AgencyManager(models.Manager):
 
 
 class Agency(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='agency', verbose_name=_('User'))
+    user = models.OneToOneField(DirectorUser, on_delete=models.CASCADE, related_name='agency', verbose_name=_('User'))
     name = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Name'))
     about = models.TextField(null=True, blank=True, verbose_name=_('About'))
     since = models.DateField(null=True, blank=True, verbose_name=_('Since'))
