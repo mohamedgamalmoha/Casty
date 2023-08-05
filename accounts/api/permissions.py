@@ -1,8 +1,6 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
-from agencies.models import Agency
-from profiles.models import Profile
-from accounts.utils import is_non_admin_user, is_model_user, is_director_model
+from accounts.utils import is_non_admin_user, is_model_user, is_director_model, is_owner
 
 
 class ReadOnly(BasePermission):
@@ -18,12 +16,7 @@ class IsModelUser(BasePermission):
         return user.is_authenticated and is_model_user(user)
 
     def has_object_permission(self, request, view, obj) -> bool:
-        if isinstance(obj, Profile):
-            return obj.user == request.user
-        profile = getattr(obj, 'profile', None)
-        if isinstance(profile, Profile):
-            return profile.user == request.user
-        return False
+        return is_owner(request.user, obj)
 
 
 class IsDirectorUser(BasePermission):
@@ -33,12 +26,7 @@ class IsDirectorUser(BasePermission):
         return user.is_authenticated and is_director_model(user)
 
     def has_object_permission(self, request, view, obj) -> bool:
-        if isinstance(obj, Agency):
-            return obj.user == request.user
-        profile = getattr(obj, 'agency', None)
-        if isinstance(profile, Agency):
-            return profile.user == request.user
-        return False
+        return is_owner(request.user, obj)
 
 
 class DenyDelete(BasePermission):
