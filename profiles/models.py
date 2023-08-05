@@ -58,7 +58,7 @@ class ModelUserManager(CustomUserManager):
 class ModelUser(User):
     base_role = RoleChoices.MODEL
 
-    student = ModelUserManager()
+    objects = ModelUserManager()
 
     class Meta:
         proxy = True
