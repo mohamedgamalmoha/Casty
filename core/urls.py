@@ -37,6 +37,7 @@ urlpatterns = [
     path('api/', include('accounts.api.urls', namespace='accounts')),
     path('api/', include('profiles.api.urls', namespace='profiles')),
     path('api/', include('agencies.api.urls', namespace='agencies')),
+    path('api/', include('reports.api.urls', namespace='reports')),
 ]
 
 if settings.DEBUG:
