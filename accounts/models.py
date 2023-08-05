@@ -27,7 +27,7 @@ class CustomUserManager(UserManager):
 
 
 class User(AbstractUser):
-    base_role = RoleChoices.MODEL
+    base_role = RoleChoices.OTHER
 
     email = models.EmailField(blank=False, unique=True, verbose_name=_('Email Address'))
     role = models.PositiveSmallIntegerField(choices=RoleChoices.choices, default=base_role, null=True,
@@ -37,11 +37,6 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'role']
 
     objects = CustomUserManager()
-
-    def save(self, *args, **kwargs):
-        if not self.pk or self.role is None:
-            self.role = self.base_role
-        return super().save(*args, **kwargs)
 
     class Meta(AbstractUser.Meta):
         verbose_name = _('User')
