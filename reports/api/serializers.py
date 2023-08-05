@@ -76,15 +76,17 @@ class ReportSerializer(FlexFieldsModelSerializer):
         # Check if the pk matches the model or not
         obj = get_object_or_none(model, pk=pk)
         if obj is None:
+            name = model.__name__
             raise serializers.ValidationError(
-                _(f'No instance of {model.__name__} model matches the target id {pk}.')
+                _(f'No instance of {name} model matches the target id {pk}.')
             )
 
         # Check if the user reports a model that his own
         user = request.user
         if is_owner(user, obj):
+            name = model.__name__
             raise serializers.ValidationError(
-                _(f'User can`t report a model {model.__name__} that he owns.')
+                _(f'User can`t report a model {name} that he owns.')
             )
 
         # Set content object to be saved in create function
