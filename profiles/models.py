@@ -210,8 +210,8 @@ class PreviousExperience(models.Model):
     update_at = models.DateTimeField(auto_now=True, verbose_name=_('Update Date'))
 
     class Meta:
-        verbose_name = _('Social Link')
-        verbose_name_plural = _('Social Links')
+        verbose_name = _('Previous Experience')
+        verbose_name_plural = _('Previous Experiences')
         ordering = ('-create_at', '-update_at')
 
 
