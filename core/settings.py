@@ -651,13 +651,13 @@ EMAIL_USE_TLS = True
 # Jazzmin Settings
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
-    "site_title": "Casty Admin",
+    "site_title": _("Casty Admin"),
 
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Casty",
+    "site_header": _("Casty"),
 
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_brand": "Casty",
+    "site_brand": _("Casty"),
 
     # Logo to use for your site, must be present in static files, used for brand on top left
     "site_logo": "images/favicon.png",
@@ -675,10 +675,10 @@ JAZZMIN_SETTINGS = {
     "site_icon": None,
 
     # Welcome text on the login screen
-    "welcome_sign": "Welcome To Casty",
+    "welcome_sign": _("Welcome To Casty"),
 
     # Copyright on the footer
-    "copyright": "Casty Development Team",
+    "copyright": _("Casty Development Team"),
 
     # List of model admins to search from the search bar, search bar omitted if excluded
     # If you want to use a single search field you dont need to use a list, you can use a simple string
@@ -695,7 +695,7 @@ JAZZMIN_SETTINGS = {
     "topmenu_links": [
 
         # Url that gets reversed (Permissions can be added)
-        {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": _("Home"),  "url": "admin:index", "permissions": ["auth.view_user"]},
 
         # model admin to link to (Permissions checked against model)
         {"app": "accounts"},
@@ -770,7 +770,7 @@ JAZZMIN_SETTINGS = {
     # Whether to link font from fonts.googleapis.com (use custom_css to supply font otherwise)
     "use_google_fonts_cdn": True,
     # Whether to show the UI customizer on the sidebar
-    "show_ui_builder": True,
+    "show_ui_builder": False,
 
     ###############
     # Change view #

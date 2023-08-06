@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-06 23:18+0200\n"
+"POT-Creation-Date: 2023-08-06 23:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -310,6 +310,24 @@ msgstr "وكالة"
 #: .\agencies\models.py:137
 msgid "Agency Images"
 msgstr "صور الوكالات"
+
+#: .\core\settings.py:654
+#, fuzzy
+#| msgid "Admin"
+msgid "Casty Admin"
+msgstr "ادمن كاستي"
+
+#: .\core\settings.py:657 .\core\settings.py:660
+msgid "Casty"
+msgstr "كاستي"
+
+#: .\core\settings.py:678
+msgid "Welcome To Casty"
+msgstr "اهلا بك في كاستي"
+
+#: .\core\settings.py:681
+msgid "Casty Development Team"
+msgstr "فريق تطوير كاستي"
 
 #: .\core\settings.py:796
 msgid "English"
@@ -899,11 +917,14 @@ msgstr "ردود البلاغات"
 
 #: .\templates\admin\base.html:9
 msgid "Copyright"
-msgstr ""
+msgstr "حقوق الملكية"
 
 #: .\templates\admin\base.html:9
 msgid "All rights reserved."
-msgstr ""
+msgstr "كل الحقوق محفوظة"
+
+msgid "Account"
+msgstr "الحساب"
 
 msgid "accounts"
 msgstr "الحسابات"
@@ -922,3 +943,14 @@ msgstr "المصادقة والتفويض"
 
 msgid "Dashboard"
 msgstr "لوحة التحكم الرئيسية"
+
+msgid "Thanks for spending some quality time with the Web site today."
+msgstr "نشكرك على قضاء بعض الوقت الجيد مع موقعنا اليوم."
+
+msgid "Home"
+msgstr "الرئيسية"
+
+msgid "home"
+msgstr "الرئيسية"
+
+
