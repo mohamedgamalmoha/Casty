@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-21 21:34+0200\n"
+"POT-Creation-Date: 2023-08-06 23:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,6 +71,7 @@ msgstr "المدير"
 
 #: .\accounts\enums.py:11 .\agencies\enums.py:13 .\profiles\enums.py:8
 #: .\profiles\enums.py:23 .\profiles\enums.py:38 .\profiles\enums.py:50
+#: .\reports\enums.py:42
 msgid "Other"
 msgstr "آخر"
 
@@ -78,23 +79,52 @@ msgstr "آخر"
 msgid "Role shouldn't be null or equal to Admin"
 msgstr "لا يجب أن يكون دور فارغًا أو يساوي المسؤول"
 
-#: .\accounts\models.py:32 .\agencies\models.py:68
+#: .\accounts\models.py:32 .\agencies\models.py:74
 msgid "Email Address"
 msgstr "عنوان البريد الإلكتروني"
 
-#: .\accounts\models.py:34 .\profiles\models.py:187
+#: .\accounts\models.py:34 .\profiles\models.py:202
 msgid "Role"
 msgstr "الدور"
 
-#: .\accounts\models.py:47 .\agencies\models.py:61 .\profiles\models.py:98
+#: .\accounts\models.py:42 .\agencies\models.py:61 .\profiles\models.py:104
+#: .\reports\models.py:15 .\reports\models.py:50
 msgid "User"
 msgstr "المستخدم"
 
-#: .\accounts\models.py:48
+#: .\accounts\models.py:43
 msgid "Users"
 msgstr "المستخدمون"
 
-#: .\agencies\apps.py:8 .\agencies\models.py:95
+#: .\agencies\admin.py:30
+msgid "Agency Main Info"
+msgstr "المعلومات الاساسية للوكالة"
+
+#: .\agencies\admin.py:33 .\profiles\admin.py:76
+msgid "Contact Information"
+msgstr "معلومات الاتصال"
+
+#: .\agencies\admin.py:36
+msgid "Current Location"
+msgstr "الموقع الحالي"
+
+#: .\agencies\admin.py:39
+msgid "Services Offered"
+msgstr "الخدمات المقدمة"
+
+#: .\agencies\admin.py:42 .\profiles\admin.py:92
+msgid "Following"
+msgstr "المتابعين"
+
+#: .\agencies\admin.py:45 .\profiles\admin.py:95
+msgid "Dates"
+msgstr "تواريخ"
+
+#: .\agencies\api\serializers.py:44 .\profiles\api\serializers.py:91
+msgid "You have reached the maximum number of images that could be created"
+msgstr "لقد وصلت إلى الحد الأقصى لعدد الصور التي يمكن إنشاؤها"
+
+#: .\agencies\apps.py:8 .\agencies\models.py:101
 msgid "Agencies"
 msgstr "الوكالات"
 
@@ -138,7 +168,7 @@ msgstr "الممثلين"
 msgid "Extras"
 msgstr "الممثلين الإضافيين"
 
-#: .\agencies\models.py:62 .\profiles\models.py:21 .\profiles\models.py:33
+#: .\agencies\models.py:62 .\profiles\models.py:22 .\profiles\models.py:37
 msgid "Name"
 msgstr "الاسم"
 
@@ -154,107 +184,138 @@ msgstr "منذ"
 msgid "Is Authorized"
 msgstr "مُصرّح به"
 
-#: .\agencies\models.py:69 .\profiles\models.py:112
+#: .\agencies\models.py:69 .\profiles\models.py:111
+msgid "Following Models"
+msgstr "الموديلات المتابعين"
+
+#: .\agencies\models.py:71 .\profiles\models.py:113
+msgid "Following Agencies"
+msgstr "الوكالات المتابعين"
+
+#: .\agencies\models.py:75 .\profiles\models.py:126
 msgid "Phone Number 1"
 msgstr "رقم الهاتف 1"
 
-#: .\agencies\models.py:70 .\profiles\models.py:113
+#: .\agencies\models.py:76 .\profiles\models.py:127
 msgid "Phone Number 2"
 msgstr "رقم الهاتف 2"
 
-#: .\agencies\models.py:73 .\profiles\models.py:116
+#: .\agencies\models.py:79 .\profiles\models.py:130
 msgid "City"
 msgstr "المدينة"
 
-#: .\agencies\models.py:74 .\profiles\models.py:117
+#: .\agencies\models.py:80 .\profiles\models.py:131
 msgid "Country"
 msgstr "البلد"
 
-#: .\agencies\models.py:75 .\profiles\models.py:118
+#: .\agencies\models.py:81 .\profiles\admin.py:79 .\profiles\models.py:132
 msgid "Address"
 msgstr "العنوان"
 
-#: .\agencies\models.py:77
+#: .\agencies\models.py:83
 msgid "Latitude"
 msgstr "خط العرض"
 
-#: .\agencies\models.py:79
+#: .\agencies\models.py:85
 msgid "Longitude"
 msgstr "خط الطول"
 
-#: .\agencies\models.py:83
+#: .\agencies\models.py:89
 msgid "Service"
 msgstr "الخدمة"
 
-#: .\agencies\models.py:85
+#: .\agencies\models.py:91
 msgid "Industry"
 msgstr "الصناعة"
 
-#: .\agencies\models.py:88 .\agencies\models.py:110 .\profiles\models.py:23
-#: .\profiles\models.py:35 .\profiles\models.py:148 .\profiles\models.py:167
-#: .\profiles\models.py:194
+#: .\agencies\models.py:94 .\agencies\models.py:116 .\agencies\models.py:130
+#: .\profiles\models.py:24 .\profiles\models.py:39 .\profiles\models.py:162
+#: .\profiles\models.py:181 .\profiles\models.py:209 .\profiles\models.py:223
+#: .\reports\models.py:32 .\reports\models.py:52
 msgid "Creation Date"
 msgstr "تاريخ الإنشاء"
 
-#: .\agencies\models.py:89 .\agencies\models.py:111 .\profiles\models.py:24
-#: .\profiles\models.py:36 .\profiles\models.py:149 .\profiles\models.py:168
-#: .\profiles\models.py:195
+#: .\agencies\models.py:95 .\agencies\models.py:117 .\agencies\models.py:131
+#: .\profiles\models.py:25 .\profiles\models.py:40 .\profiles\models.py:163
+#: .\profiles\models.py:182 .\profiles\models.py:210 .\profiles\models.py:224
+#: .\reports\models.py:33 .\reports\models.py:53
 msgid "Update Date"
 msgstr "تاريخ التحديث"
 
-#: .\agencies\models.py:94 .\agencies\models.py:100
+#: .\agencies\models.py:100 .\agencies\models.py:106 .\agencies\models.py:126
 msgid "Agency"
 msgstr "وكالة"
 
-#: .\agencies\models.py:101 .\profiles\models.py:186
+#: .\agencies\models.py:107 .\profiles\models.py:201
 msgid "Project Name"
 msgstr "اسم المشروع"
 
-#: .\agencies\models.py:102
+#: .\agencies\models.py:108
 msgid "Client Name"
 msgstr "اسم العميل"
 
-#: .\agencies\models.py:103 .\profiles\models.py:188
+#: .\agencies\models.py:109 .\profiles\models.py:203
 msgid "Description"
 msgstr "الوصف"
 
-#: .\agencies\models.py:104
+#: .\agencies\models.py:110
 msgid "Success Story"
 msgstr "قصة نجاح"
 
-#: .\agencies\models.py:105 .\profiles\models.py:189
+#: .\agencies\models.py:111 .\profiles\models.py:204
 msgid "Start Date"
 msgstr "تاريخ البدء"
 
-#: .\agencies\models.py:106 .\profiles\models.py:190
+#: .\agencies\models.py:112 .\profiles\models.py:205
 msgid "End Date"
 msgstr "تاريخ الانتهاء"
 
-#: .\agencies\models.py:107 .\profiles\models.py:191
+#: .\agencies\models.py:113 .\profiles\models.py:206
 msgid "If the project is ongoing, the end_date can be null"
 msgstr "إذا كان المشروع قيد التنفيذ، يمكن أن يكون تاريخ الانتهاء فارغًا"
 
-#: .\agencies\models.py:108 .\profiles\models.py:165 .\profiles\models.py:192
+#: .\agencies\models.py:114 .\agencies\models.py:128 .\profiles\models.py:179
+#: .\profiles\models.py:207 .\profiles\models.py:221 .\reports\models.py:23
 msgid "Active"
 msgstr "نشط"
 
-#: .\agencies\models.py:109 .\profiles\models.py:193
+#: .\agencies\models.py:115 .\profiles\models.py:208
 msgid "Designates whether experience is viewed at the profile"
 msgstr "يحدد ما إذا كان يتم عرض التجربة في الملف الشخصي"
 
-#: .\agencies\models.py:114
+#: .\agencies\models.py:120
 msgid "Previous Work"
 msgstr "العمل السابق"
 
-#: .\agencies\models.py:115
+#: .\agencies\models.py:121
 msgid "Previous Works"
 msgstr "الأعمال السابقة"
 
-#: .\core\settings.py:795
+#: .\agencies\models.py:127 .\profiles\models.py:158 .\profiles\models.py:220
+msgid "Image"
+msgstr "الصورة"
+
+#: .\agencies\models.py:129 .\profiles\models.py:222
+#, fuzzy
+#| msgid "Designates whether this link is viewed at the profile"
+msgid "Designates whether images is viewed at the profile"
+msgstr "يحدد ما إذا كان يتم عرض هذا الرابط في الملف الشخصي"
+
+#: .\agencies\models.py:136
+#, fuzzy
+#| msgid "Agency"
+msgid "Agency Image"
+msgstr "وكالة"
+
+#: .\agencies\models.py:137
+msgid "Agency Images"
+msgstr "صور الوكالات"
+
+#: .\core\settings.py:796
 msgid "English"
 msgstr "الإنجليزية"
 
-#: .\core\settings.py:796
+#: .\core\settings.py:797
 msgid "Arabic"
 msgstr "العربية"
 
@@ -290,7 +351,23 @@ msgstr "في الستينات"
 msgid "In the seventies"
 msgstr "في السبعينات"
 
-#: .\profiles\apps.py:8 .\profiles\models.py:158
+#: .\profiles\admin.py:73
+msgid "User Main Info"
+msgstr "معلومات المستخدم الرئيسية"
+
+#: .\profiles\admin.py:82
+msgid "Movement Restriction"
+msgstr "تقييد الحركة"
+
+#: .\profiles\admin.py:85
+msgid "Physical Attributes"
+msgstr "سمات بدنية"
+
+#: .\profiles\admin.py:88
+msgid "Images"
+msgstr "الصورة"
+
+#: .\profiles\apps.py:8 .\profiles\models.py:172
 msgid "Profiles"
 msgstr "الملفات الشخصية"
 
@@ -418,119 +495,430 @@ msgstr "عنبري"
 msgid "Violet"
 msgstr "بنفسجي"
 
-#: .\profiles\models.py:22
+#: .\profiles\enums.py:54
+msgid "A"
+msgstr "أ"
+
+#: .\profiles\enums.py:55
+msgid "B"
+msgstr "ب"
+
+#: .\profiles\enums.py:56
+msgid "C"
+msgstr "ج"
+
+#: .\profiles\enums.py:57
+msgid "Foreign Looking"
+msgstr "شبيه اجانب"
+
+#: .\profiles\enums.py:58
+msgid "Foreign"
+msgstr "اجنبي"
+
+#: .\profiles\enums.py:59
+msgid "Indeterminate"
+msgstr "غير محدد"
+
+#: .\profiles\models.py:23
 msgid "Is Active"
 msgstr "نشط"
 
-#: .\profiles\models.py:27
+#: .\profiles\models.py:28
 msgid "Skill"
 msgstr "مهارة"
 
-#: .\profiles\models.py:28 .\profiles\models.py:103
+#: .\profiles\models.py:29 .\profiles\models.py:117
 msgid "Skills"
 msgstr "المهارات"
 
-#: .\profiles\models.py:34
+#: .\profiles\models.py:38
 msgid "Code"
 msgstr "الكود"
 
-#: .\profiles\models.py:39
+#: .\profiles\models.py:43
 msgid "Language"
 msgstr "اللغة"
 
-#: .\profiles\models.py:40 .\profiles\models.py:104
+#: .\profiles\models.py:44 .\profiles\models.py:118
 msgid "Languages"
 msgstr "اللغات"
 
-#: .\profiles\models.py:99
+#: .\profiles\models.py:105
 msgid "Is Public"
 msgstr "عام"
 
-#: .\profiles\models.py:102
+#: .\profiles\models.py:107
+msgid "Model Class"
+msgstr "تصنيف الودل"
+
+#: .\profiles\models.py:116
 msgid "Bio"
 msgstr "السيرة الذاتية"
 
-#: .\profiles\models.py:106
+#: .\profiles\models.py:120
 msgid "Gender"
 msgstr "الجنس"
 
-#: .\profiles\models.py:108
+#: .\profiles\models.py:122
 msgid "Race"
 msgstr "العرق"
 
-#: .\profiles\models.py:109
+#: .\profiles\models.py:123
 msgid "Date of Birth"
 msgstr "تاريخ الميلاد"
 
-#: .\profiles\models.py:122
+#: .\profiles\models.py:136
 msgid "Travel Inboard"
 msgstr "السفر داخل البلاد"
 
-#: .\profiles\models.py:123
+#: .\profiles\models.py:137
 msgid "Willingness to travel inboard / locally"
 msgstr "الاستعداد للسفر داخل البلاد / محليًا"
 
-#: .\profiles\models.py:125
+#: .\profiles\models.py:139
 msgid "Travel outboard "
 msgstr "السفر خارج البلاد"
 
-#: .\profiles\models.py:126
+#: .\profiles\models.py:140
 msgid "Willingness to travel outboard / globally"
 msgstr "الاستعداد للسفر خارج البلاد / عالميًا"
 
-#: .\profiles\models.py:129
+#: .\profiles\models.py:143
 msgid "Days Away"
 msgstr "عدد الأيام بعيدًا عن المنزل"
 
-#: .\profiles\models.py:130
+#: .\profiles\models.py:144
 msgid "How many days can you stay away from home?"
 msgstr "كم يومًا يمكنك البقاء بعيدًا عن المنزل؟"
 
-#: .\profiles\models.py:134
+#: .\profiles\models.py:148
 msgid "Height"
 msgstr "الطول"
 
-#: .\profiles\models.py:137
+#: .\profiles\models.py:151
 msgid "Weight"
 msgstr "الوزن"
 
-#: .\profiles\models.py:139
+#: .\profiles\models.py:153
 msgid "Hair Color"
 msgstr "لون الشعر"
 
-#: .\profiles\models.py:141
+#: .\profiles\models.py:155
 msgid "Eye Color"
 msgstr "لون العين"
 
-#: .\profiles\models.py:144
-msgid "Image"
-msgstr "الصورة"
-
-#: .\profiles\models.py:145
+#: .\profiles\models.py:159
 msgid "Cover Image"
 msgstr "صورة الغلاف"
 
-#: .\profiles\models.py:157 .\profiles\models.py:163 .\profiles\models.py:184
+#: .\profiles\models.py:171 .\profiles\models.py:177 .\profiles\models.py:199
+#: .\profiles\models.py:219
 msgid "Profile"
 msgstr "الملف الشخصي"
 
-#: .\profiles\models.py:164
+#: .\profiles\models.py:178
 msgid "Link"
 msgstr "الرابط"
 
-#: .\profiles\models.py:166
+#: .\profiles\models.py:180
 msgid "Designates whether this link is viewed at the profile"
 msgstr "يحدد ما إذا كان يتم عرض هذا الرابط في الملف الشخصي"
 
-#: .\profiles\models.py:171 .\profiles\models.py:198
+#: .\profiles\models.py:185
 msgid "Social Link"
 msgstr "الرابط الاجتماعي"
 
-#: .\profiles\models.py:172 .\profiles\models.py:199
+#: .\profiles\models.py:186
 msgid "Social Links"
 msgstr "الروابط الاجتماعية"
 
-#: .\profiles\models.py:185
+#: .\profiles\models.py:200
 msgid "Company Name"
 msgstr "اسم الشركة"
 
+#: .\profiles\models.py:213
+msgid "Previous Experience"
+msgstr "العمل السابق"
+
+#: .\profiles\models.py:214
+msgid "Previous Experiences"
+msgstr "الأعمال السابقة"
+
+#: .\profiles\models.py:229
+msgid "Profile Image"
+msgstr " صورة الملف الشخصي"
+
+#: .\profiles\models.py:230
+msgid "Profile Images"
+msgstr "صور الملفات الشخصية"
+
+#: .\reports\admin.py:26
+msgid "General"
+msgstr "عام"
+
+#: .\reports\admin.py:41
+msgid "Reported Object Link"
+msgstr "لينك الشي المبلغ عنه"
+
+#: .\reports\api\serializers.py:73
+msgid "Invalid Action."
+msgstr "إجراء غير صحيح"
+
+#: .\reports\api\serializers.py:81
+#, python-brace-format
+msgid "No instance of {name} model matches the target id {pk}."
+msgstr "لا يوجد مثيل لنموذج {name} يتطابق مع معرّف الهدف {pk}."
+
+#: .\reports\api\serializers.py:89
+#, python-brace-format
+msgid "User can`t report a model {name} that he owns."
+msgstr "المستخدم غير قادر على الإبلاغ عن نموذج {name} الذي يمتلكه."
+
+#: .\reports\api\serializers.py:119
+msgid "User can't create a response for report that he doesn't own"
+msgstr "لا يمكن للمستخدم إنشاء رد لتقرير لا يملكه"
+
+#: .\reports\apps.py:8 .\reports\models.py:40
+msgid "Reports"
+msgstr "بلاغات"
+
+#: .\reports\enums.py:11
+msgid "Bug Report"
+msgstr "ابلاغ عن خلل"
+
+#: .\reports\enums.py:12
+msgid "Performance Issue"
+msgstr "مشكلة الأداء"
+
+#: .\reports\enums.py:13
+msgid "User Interface (UI) Issue"
+msgstr "مشكلة واجهة المستخدم"
+
+#: .\reports\enums.py:14
+msgid "Security Vulnerability"
+msgstr "ثغرة أمان"
+
+#: .\reports\enums.py:15
+msgid "Compatibility Issue"
+msgstr "مشكلة التوافق"
+
+#: .\reports\enums.py:16
+msgid "Data Integrity Issue"
+msgstr "مشكلة تكامل البيانات"
+
+#: .\reports\enums.py:17
+msgid "Documentation Issue"
+msgstr "مشكلة التوثيق"
+
+#: .\reports\enums.py:18
+msgid "Accessibility Issue"
+msgstr "مشكلة الوصولية"
+
+#: .\reports\enums.py:19
+msgid "Hardware Problem"
+msgstr "مشكلة الأجهزة"
+
+#: .\reports\enums.py:20
+msgid "Network Connectivity Issue"
+msgstr "مشكلة الاتصال بالشبكة"
+
+#: .\reports\enums.py:21
+msgid "Crash Report"
+msgstr "ابلاغ عن انهيار"
+
+#: .\reports\enums.py:22
+msgid "Installation/Deployment Issue"
+msgstr "مشكلة التثبيت"
+
+#: .\reports\enums.py:23
+msgid "Usability/UX Issue"
+msgstr "مشكلة الاستخدام/تجربة المستخدم"
+
+#: .\reports\enums.py:24
+msgid "Performance Degradation"
+msgstr "تدهور الأداء"
+
+#: .\reports\enums.py:25
+msgid "Feature Request"
+msgstr "طلب ميزة"
+
+#: .\reports\enums.py:26
+#, fuzzy
+#| msgid "Description"
+msgid "Discrimination"
+msgstr "التمييز"
+
+#: .\reports\enums.py:27
+msgid "Bullying"
+msgstr "التنمر"
+
+#: .\reports\enums.py:28
+msgid "Poverty and Homelessness"
+msgstr "الفقر والبيوت المشردة"
+
+#: .\reports\enums.py:29
+msgid "Substance Abuse"
+msgstr "سوء استخدام المواد"
+
+#: .\reports\enums.py:30
+msgid "Mental Health Issues"
+msgstr "قضايا الصحة العقلية"
+
+#: .\reports\enums.py:31
+msgid "Domestic Violence"
+msgstr "العنف الأسري"
+
+#: .\reports\enums.py:32
+msgid "Human Trafficking"
+msgstr "الاتجار بالبشر"
+
+#: .\reports\enums.py:33
+msgid "Environmental Concerns"
+msgstr "قضايا البيئة"
+
+#: .\reports\enums.py:34
+msgid "Education Disparities"
+msgstr "اختلافات التعليم"
+
+#: .\reports\enums.py:35
+msgid "Healthcare Access"
+msgstr "الوصول إلى الرعاية الصحية"
+
+#: .\reports\enums.py:36
+msgid "Gender Inequality"
+msgstr "عدم المساواة بين الجنسين"
+
+#: .\reports\enums.py:37
+msgid "Racial Injustice"
+msgstr "الظلم العنصري"
+
+#: .\reports\enums.py:38
+msgid "Immigration and Refugee Challenges"
+msgstr "تحديات الهجرة واللاجئين"
+
+#: .\reports\enums.py:39
+msgid "Child Abuse and Neglect"
+msgstr "إساءة معاملة الأطفال والإهمال"
+
+#: .\reports\enums.py:40
+msgid "Privacy Concerns"
+msgstr "مخاوف الخصوصية"
+
+#: .\reports\enums.py:41
+msgid "Nudity Content"
+msgstr "محتوى عاري"
+
+#: .\reports\enums.py:54
+msgid "Thank you for bringing this to our attention"
+msgstr "شكرًا لك على إبلاغنا بهذا"
+
+#: .\reports\enums.py:55
+msgid "Rest assured, we're here to help you resolve this"
+msgstr "تأكد أننا هنا لمساعدتك في حل هذا"
+
+#: .\reports\enums.py:56
+msgid "Let's start by troubleshooting the problem together"
+msgstr "لنبدأ بحل المشكلة معًا"
+
+#: .\reports\enums.py:57
+msgid "Could you please provide more details about the issue"
+msgstr "هل يمكنك تقديم مزيد من التفاصيل حول المشكلة؟"
+
+#: .\reports\enums.py:58
+msgid ""
+"We're working on a solution and aim to have this resolved as soon as possible"
+msgstr "نحن نعمل على حل وسنسعى لحل هذا في أقرب وقت ممكن"
+
+#: .\reports\enums.py:59
+msgid ""
+"While we work on a solution, is there anything else we can help you with"
+msgstr "أثناء عملنا على الحل، هل هناك شيء آخر يمكننا مساعدتك به؟"
+
+#: .\reports\enums.py:60
+msgid ""
+"Your feedback is important to us and helps us improve our products/services"
+msgstr "تعليقاتك مهمة بالنسبة لنا وتساعدنا في تحسين منتجاتنا/خدماتنا"
+
+#: .\reports\enums.py:61
+msgid ""
+"Feel free to reach out if you have any questions or need further assistance"
+msgstr ""
+"لا تتردد في التواصل إذا كان لديك أي أسئلة أو تحتاج إلى مزيد من المساعدة"
+
+#: .\reports\enums.py:62
+msgid "Thank you for your patience and understanding as we resolve this"
+msgstr "شكرًا لصبرك وتفهمك أثناء حل هذا"
+
+#: .\reports\forms.py:68
+msgid "Need to select choice or enter text for this field"
+msgstr "يجب اختيار خيار أو إدخال نص لهذا الحقل"
+
+#: .\reports\models.py:19
+msgid "Type"
+msgstr "النوع"
+
+#: .\reports\models.py:20
+msgid "Title"
+msgstr "العنوان"
+
+#: .\reports\models.py:21
+msgid "Content"
+msgstr "المحتوى"
+
+#: .\reports\models.py:22
+msgid "Attachment"
+msgstr "المرفق"
+
+#: .\reports\models.py:27
+msgid "Content Type"
+msgstr "نوع المحتوى"
+
+#: .\reports\models.py:28
+msgid "Object ID"
+msgstr "معرف الكائن"
+
+#: .\reports\models.py:39 .\reports\models.py:49
+msgid "Report"
+msgstr "البلاغ"
+
+#: .\reports\models.py:51
+msgid "Response"
+msgstr "الرد"
+
+#: .\reports\models.py:57
+msgid "Cant create response while being report not active"
+msgstr "لا يمكن إنشاء رد أثناء عدم تفعيل التقرير"
+
+#: .\reports\models.py:61
+msgid "Report Response"
+msgstr "رد البلاغ"
+
+#: .\reports\models.py:62
+msgid "Report Responses"
+msgstr "ردود البلاغات"
+
+#: .\templates\admin\base.html:9
+msgid "Copyright"
+msgstr ""
+
+#: .\templates\admin\base.html:9
+msgid "All rights reserved."
+msgstr ""
+
+msgid "accounts"
+msgstr "الحسابات"
+
+msgid "agencies"
+msgstr "الوكالات"
+
+msgid "profiles"
+msgstr "الملفات الشخصية"
+
+msgid "reports"
+msgstr "بلاغات"
+
+msgid "auth"
+msgstr "المصادقة والتفويض"
+
+msgid "Dashboard"
+msgstr "لوحة التحكم الرئيسية"
