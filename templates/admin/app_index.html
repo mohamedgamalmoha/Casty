@@ -1,0 +1,6 @@
+{% extends "admin/index.html" %}
+{% load i18n %}
+
+{% block content_title %}{% translate app_label %}{% endblock %}
+
+{% block bodyclass %}{{ block.super }} app-{% translate app_label %}{% endblock %}

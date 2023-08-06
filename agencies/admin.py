@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 
 from .models import Agency, PreviousWork, AgencyImage
 
@@ -26,22 +27,22 @@ class AgencyAdmin(admin.ModelAdmin):
     list_filter = ('is_authorized', 'service', 'industry')
     inlines = [PreviousWorkInline, AgencyImageInlineAdmin]
     fieldsets = (
-        ('Agency Main Info', {'fields': (
+        (_('Agency Main Info'), {'fields': (
             'user', 'name', 'about', 'since', 'is_authorized'
         )}),
-        ('Contact Information', {'fields': (
+        (_('Contact Information'), {'fields': (
             'email', 'phone_number_1', 'phone_number_2'
         )}),
-        ('Current Location', {'fields': (
+        (_('Current Location'), {'fields': (
             'city', 'country', 'address', 'latitude', 'longitude'
         )}),
-        ('Services Offered', {'fields': (
+        (_('Services Offered'), {'fields': (
             'service', 'industry'
         )}),
-        ('Following', {'fields': (
+        (_('Following'), {'fields': (
             'following_models', 'following_agencies'
         )}),
-        ('Dates', {'fields': (
+        (_('Dates'), {'fields': (
             'create_at', 'update_at'
         )}),
     )

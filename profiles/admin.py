@@ -70,29 +70,29 @@ class ProfileAdmin(AdminQueryset, admin.ModelAdmin):
                    'travel_outboard', 'hair', 'eye']
     readonly_fields = ['user', 'create_at', 'update_at']
     fieldsets = (
-        ('User Main Info', {'fields': (
+        (_('User Main Info'), {'fields': (
             'user', 'bio', 'is_public', 'model_class', 'skills', 'languages', 'gender', 'race', 'date_of_birth'
         )}),
-        ('Contact Information', {'fields': (
+        (_('Contact Information'), {'fields': (
             ('phone_number_1', 'phone_number_2'),
         )}),
-        ('Address', {'fields': (
+        (_('Address'), {'fields': (
             'city', 'country', 'address'
         )}),
-        ('Movement Restriction', {'fields': (
+        (_('Movement Restriction'), {'fields': (
             'travel_inboard', 'travel_outboard', 'days_away'
         )}),
-        ('Physical Attributes', {'fields': (
+        (_('Physical Attributes'), {'fields': (
             'height', 'weight', 'hair', 'eye'
         )}),
-        ('Images', {'fields': (
+        (_('Images'), {'fields': (
             ('image', ),
             ('cover', ),
         )}),
-        ('Following', {'fields': (
+        (_('Following'), {'fields': (
             'following_models', 'following_agencies'
         )}),
-        ('Dates', {'fields': (
+        (_('Dates'), {'fields': (
            'create_at', 'update_at'
         )}),
     )
