@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.backends import get_user_model
 from django.contrib.contenttypes.models import ContentType
@@ -81,3 +83,10 @@ class ReportResponse(models.Model):
         verbose_name = _('Report Response')
         verbose_name_plural = _('Report Responses')
         ordering = ('-create_at', '-update_at')
+
+
+@receiver(pre_delete, sender=Report)
+def delete_attachment(sender, instance, *args, **kwargs):
+    file = instance.attachment
+    if file:
+        file.delete(save=False)
