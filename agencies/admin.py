@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
+from profiles.utils import create_html_image
 from .models import Agency, PreviousWork, AgencyImage
 
 
@@ -15,10 +16,15 @@ class PreviousWorkInline(admin.TabularInline):
 
 class AgencyImageInlineAdmin(admin.TabularInline):
     model = AgencyImage
-    readonly_fields = ('image', 'create_at', 'update_at')
+    readonly_fields = ('image', 'show_image', 'create_at', 'update_at')
     extra = 0
     min_num = 0
     can_delete = False
+
+    def show_image(self, obj):
+        return create_html_image(obj.image)
+
+    show_image.short_description = '-'
 
 
 class AgencyAdmin(admin.ModelAdmin):

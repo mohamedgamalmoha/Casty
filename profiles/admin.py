@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from .mixins import AdminQueryset
 from .models import Skill, Language, Profile, SocialLink, PreviousExperience, ProfileImage
+from .utils import create_html_image
 
 
 class AgeProfileListFilter(admin.SimpleListFilter):
@@ -47,10 +48,15 @@ class PreviousExperienceInlineAdmin(admin.TabularInline):
 
 class ProfileImageInlineAdmin(admin.TabularInline):
     model = ProfileImage
-    readonly_fields = ('image', 'create_at', 'update_at')
+    readonly_fields = ('image', 'show_image', 'create_at', 'update_at')
     extra = 0
     min_num = 0
     can_delete = False
+
+    def show_image(self, obj):
+        return create_html_image(obj.image)
+
+    show_image.short_description = '-'
 
 
 class SkillAdmin(admin.ModelAdmin):
@@ -68,7 +74,7 @@ class ProfileAdmin(AdminQueryset, admin.ModelAdmin):
     date_hierarchy = 'create_at'
     list_filter = ['is_public', 'model_class', 'gender', AgeProfileListFilter, 'race', 'travel_inboard',
                    'travel_outboard', 'hair', 'eye']
-    readonly_fields = ['user', 'create_at', 'update_at']
+    readonly_fields = ['user', 'create_at', 'update_at', 'show_image', 'show_cover']
     fieldsets = (
         (_('User Main Info'), {'fields': (
             'user', 'bio', 'is_public', 'model_class', 'skills', 'languages', 'gender', 'race', 'date_of_birth'
@@ -86,8 +92,8 @@ class ProfileAdmin(AdminQueryset, admin.ModelAdmin):
             'height', 'weight', 'hair', 'eye'
         )}),
         (_('Images'), {'fields': (
-            ('image', ),
-            ('cover', ),
+            ('image', 'show_image'),
+            ('cover', 'show_cover'),
         )}),
         (_('Following'), {'fields': (
             'following_models', 'following_agencies'
@@ -96,6 +102,17 @@ class ProfileAdmin(AdminQueryset, admin.ModelAdmin):
            'create_at', 'update_at'
         )}),
     )
+
+    def show_image(self, obj):
+        return create_html_image(obj.image)
+
+    show_image.short_description = '-'
+
+    def show_cover(self, obj):
+        return create_html_image(obj.cover)
+
+    show_cover.short_description = '-'
+
     list_per_page = 20
     queryset = Profile.objects.all()
     inlines = [SocialLinkInlineAdmin, PreviousExperienceInlineAdmin, ProfileImageInlineAdmin]
