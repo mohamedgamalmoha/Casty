@@ -29,7 +29,7 @@ class Report(models.Model):
                                             default=ReportTypeChoices.OTHER, verbose_name=_('Type'))
     title = models.CharField(max_length=250, verbose_name=_('Title'))
     content = models.TextField(verbose_name=_('Content'))
-    attachment = models.FileField(null=True, blank=True, upload_to="attachments/",
+    attachment = models.FileField(null=True, blank=True, upload_to="report/attachments/",
                                   validators=[
                                       FileContentTypeValidator(
                                           [

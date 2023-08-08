@@ -156,10 +156,10 @@ class Profile(models.Model):
                                            verbose_name=_('Eye Color'))
 
     # Image
-    image = models.ImageField(null=True, blank=True, upload_to='images/', validators=[FileSizeValidator(size_limit=5)],
-                              verbose_name=_('Image'))
-    cover = models.ImageField(null=True, blank=True, upload_to='covers/', validators=[FileSizeValidator(size_limit=5)],
-                              verbose_name=_('Cover Image'))
+    image = models.ImageField(null=True, blank=True, upload_to='profile/images/',
+                              validators=[FileSizeValidator(size_limit=5)], verbose_name=_('Image'))
+    cover = models.ImageField(null=True, blank=True, upload_to='profile/covers/',
+                              validators=[FileSizeValidator(size_limit=5)], verbose_name=_('Cover Image'))
 
     # Manipulation Attributes
     create_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation Date'))
@@ -220,8 +220,8 @@ class PreviousExperience(models.Model):
 
 class ProfileImage(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='images', verbose_name=_('Profile'))
-    image = models.ImageField(null=True, blank=True, upload_to='images/', validators=[FileSizeValidator(size_limit=5)],
-                              verbose_name=_('Image'))
+    image = models.ImageField(null=True, blank=True, upload_to='profile/extra/',
+                              validators=[FileSizeValidator(size_limit=5)], verbose_name=_('Image'))
     is_active = models.BooleanField(default=True, blank=True, verbose_name=_('Active'),
                                     help_text=_('Designates whether images is viewed at the profile'))
     create_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation Date'))
