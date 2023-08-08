@@ -8,7 +8,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.core.validators import ValidationError, FileExtensionValidator
 
 from .enums import ReportTypeChoices
-from .validators import FileSizeValidator, FileContentTypeValidator
+from profiles.validators import FileSizeValidator, FileContentTypeValidator
 
 
 User = get_user_model()
