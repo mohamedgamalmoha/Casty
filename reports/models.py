@@ -1,14 +1,22 @@
 from django.db import models
-from django.core.validators import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.backends import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
+from django.core.validators import ValidationError, FileExtensionValidator
 
 from .enums import ReportTypeChoices
+from .validators import FileSizeValidator, FileContentTypeValidator
 
 
 User = get_user_model()
+
+IMAGES_EXTENSIONS = (
+    'jpg',
+    'jpeg',
+    'png',
+    'gif'
+)
 
 
 class Report(models.Model):
@@ -19,7 +27,19 @@ class Report(models.Model):
                                             default=ReportTypeChoices.OTHER, verbose_name=_('Type'))
     title = models.CharField(max_length=250, verbose_name=_('Title'))
     content = models.TextField(verbose_name=_('Content'))
-    attachment = models.ImageField(null=True, blank=True, upload_to="attachments/", verbose_name=_('Attachment'))
+    attachment = models.FileField(null=True, blank=True, upload_to="attachments/",
+                                  validators=[
+                                      FileContentTypeValidator(
+                                          [
+                                              'application/pdf',
+                                              *tuple(map(lambda img: f'image/{img}', IMAGES_EXTENSIONS))
+                                          ]
+                                      ),
+                                      FileExtensionValidator(['pdf', *IMAGES_EXTENSIONS]),
+                                      FileSizeValidator(size_limit=5),
+                                  ],
+                                  verbose_name=_('Attachment'))
+
     is_active = models.BooleanField(default=True, blank=True, verbose_name=_('Active'))
 
     # Fields for the generic foreign key relation
