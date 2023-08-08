@@ -12,6 +12,7 @@ from agencies.models import Agency
 from accounts.enums import RoleChoices
 from accounts.models import CustomUserManager
 from .utils import get_hostname_from_url
+from .validators import FileSizeValidator
 from .enums import GenderChoices, RaceChoices, HairColorChoices, EyeColorChoices, ClassChoices
 
 
@@ -155,8 +156,10 @@ class Profile(models.Model):
                                            verbose_name=_('Eye Color'))
 
     # Image
-    image = models.ImageField(null=True, blank=True, upload_to='images/', verbose_name=_('Image'))
-    cover = models.ImageField(null=True, blank=True, upload_to='covers/', verbose_name=_('Cover Image'))
+    image = models.ImageField(null=True, blank=True, upload_to='images/', validators=[FileSizeValidator(size_limit=5)],
+                              verbose_name=_('Image'))
+    cover = models.ImageField(null=True, blank=True, upload_to='covers/', validators=[FileSizeValidator(size_limit=5)],
+                              verbose_name=_('Cover Image'))
 
     # Manipulation Attributes
     create_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation Date'))
@@ -217,7 +220,8 @@ class PreviousExperience(models.Model):
 
 class ProfileImage(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='images', verbose_name=_('Profile'))
-    image = models.ImageField(null=True, blank=True, upload_to='images/', verbose_name=_('Image'))
+    image = models.ImageField(null=True, blank=True, upload_to='images/', validators=[FileSizeValidator(size_limit=5)],
+                              verbose_name=_('Image'))
     is_active = models.BooleanField(default=True, blank=True, verbose_name=_('Active'),
                                     help_text=_('Designates whether images is viewed at the profile'))
     create_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation Date'))

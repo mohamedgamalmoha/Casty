@@ -10,6 +10,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 from accounts.enums import RoleChoices
 from accounts.models import CustomUserManager
+from profiles.validators import FileSizeValidator
 from .enums import ServiceChoices, IndustryChoices
 
 
@@ -124,7 +125,8 @@ class PreviousWork(models.Model):
 
 class AgencyImage(models.Model):
     agency = models.ForeignKey(Agency, on_delete=models.CASCADE, related_name='images', verbose_name=_('Agency'))
-    image = models.ImageField(null=True, blank=True, upload_to='images/', verbose_name=_('Image'))
+    image = models.ImageField(null=True, blank=True, upload_to='images/', validators=[FileSizeValidator(size_limit=5)],
+                              verbose_name=_('Image'))
     is_active = models.BooleanField(default=True, blank=True, verbose_name=_('Active'),
                                     help_text=_('Designates whether images is viewed at the profile'))
     create_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation Date'))

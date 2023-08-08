@@ -2,7 +2,7 @@
 
 import django.core.validators
 from django.db import migrations, models
-import reports.validators
+import profiles.validators
 
 
 class Migration(migrations.Migration):
@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='report',
             name='attachment',
-            field=models.FileField(blank=True, null=True, upload_to='attachments/', validators=[reports.validators.FileContentTypeValidator(['application/pdf', 'image/jpg', 'image/jpeg', 'image/png', 'image/gif']), django.core.validators.FileExtensionValidator(['pdf', 'jpg', 'jpeg', 'png', 'gif']), reports.validators.FileSizeValidator(size_limit=5)], verbose_name='Attachment'),
+            field=models.FileField(blank=True, null=True, upload_to='attachments/', validators=[profiles.validators.FileContentTypeValidator(['application/pdf', 'image/jpg', 'image/jpeg', 'image/png', 'image/gif']), django.core.validators.FileExtensionValidator(['pdf', 'jpg', 'jpeg', 'png', 'gif']), profiles.validators.FileSizeValidator(size_limit=5)], verbose_name='Attachment'),
         ),
     ]
