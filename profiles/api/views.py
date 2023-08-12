@@ -1,20 +1,20 @@
 from django.db import models
-from django.shortcuts import get_object_or_404
+from django.utils.translation import gettext_lazy as _
 
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.viewsets import GenericViewSet, ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListModelMixin, DestroyModelMixin
 
 from rest_flex_fields import is_expanded
 from drf_spectacular.utils import extend_schema
 
-from agencies.models import Agency
-from accounts.utils import is_model_user
-from accounts.api.permissions import IsModelUser
+from accounts.api.permissions import IsModelUser, IsDirectorUser
 from accounts.api.mixins import AllowAnyInSafeMethodOrCustomPermissionMixin
+from accounts.utils import is_model_user, is_owner, get_user_associated_model
 from profiles.models import Skill, Language, Profile, SocialLink, PreviousExperience, ProfileImage
 from .filters import ProfileFilter, PreviousExperienceFilter
 from .serializers import (SkillSerializer, LanguageSerializer, ProfileSerializer, SocialLinkSerializer,
@@ -89,6 +89,7 @@ class ProfileViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, RetrieveModelM
     filterset_class = ProfileFilter
     permission_classes = [IsModelUser]
     save_method_permission_classes = [IsAuthenticated]
+    follow_permission_classes = [IsModelUser | IsDirectorUser]
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -109,12 +110,21 @@ class ProfileViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, RetrieveModelM
     def get_permission_classes(self, request):
         if self.action == 'me':
             return self.permission_classes
+        if self.action in ('follow', 'unfollow', 'followers', 'my_followers'):
+            return self.follow_permission_classes
         return super().get_permission_classes(request)
 
     def get_object(self):
         if self.action == 'me':
             return self.request.user.profile
         return super(ProfileViewSet, self).get_object()
+
+    def get_user_associated_model_or_403(self):
+        user = self.request.user
+        account = get_user_associated_model(user)
+        if account is None:
+            raise PermissionDenied()
+        return account
 
     @extend_schema(responses={200: ProfileSerializer})
     @action(detail=False, methods=["GET", "PUT", "PATCH"], name='Get My Profile')
@@ -127,44 +137,54 @@ class ProfileViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, RetrieveModelM
             return self.partial_update(request, *args, **kwargs)
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-    @extend_schema(request=None, responses={status.HTTP_200_OK: None, status.HTTP_204_NO_CONTENT: None,
-                                            status.HTTP_405_METHOD_NOT_ALLOWED: None},
+    @extend_schema(request=None, responses={status.HTTP_200_OK: None, status.HTTP_400_BAD_REQUEST: None},
                    description="Follow / Unfollow other profiles\n"
                                "\t-200: The following is added successfully.\n"
-                               "\t-204: The following is deleted successfully.\n"
-                               "\t-400: The following is canceled cause the tow profiles were the same.\n"
-                               "\t-405: Http method is not allowed.\n")
-    @action(detail=True, methods=['POST', 'DELETE'], name='Follow Model', url_path='follow-model')
-    def follow_model(self, request, pk=None):
-        profile = request.user.profile
+                               "\t-400: The following is canceled cause the tow profiles were the same.\n")
+    @action(detail=True, methods=['POST'], name='Follow Model', url_path='follow')
+    def follow(self, request, pk=None):
+        # Check the type of the user, in case of not being model or director, an exception is thrown
+        account = self.get_user_associated_model_or_403()
+        # Check if the user has the same profile as target
         following_profile = self.get_object()
-        if profile == following_profile:
-            return Response({'error': 'Follow your own profile is not allowed'}, status=status.HTTP_400_BAD_REQUEST)
-        if request.method == 'POST':
-            profile.following_models.add(following_profile)
-            return Response(status=status.HTTP_200_OK)
-        elif request.method == 'DELETE':
-            profile.following_models.remove(following_profile)
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        if is_owner(request.user, following_profile):
+            return Response({'error': _('Follow your own profile is not allowed')}, status=status.HTTP_400_BAD_REQUEST)
+        # Add the target to profile
+        account.following_models.add(following_profile)
+        return Response(status=status.HTTP_200_OK)
 
-    @extend_schema(request=None, responses={status.HTTP_200_OK: None, status.HTTP_204_NO_CONTENT: None,
-                                            status.HTTP_405_METHOD_NOT_ALLOWED: None},
-                   description="Follow / Unfollow other profiles\n"
-                               "\t-200: The following is added successfully.\n"
-                               "\t-204: The following is deleted successfully.\n"
-                               "\t-405: Http method is not allowed.\n")
-    @action(detail=True, methods=['POST', 'DELETE'], name='Follow Agency', url_path='follow-agency')
-    def follow_agency(self, request, pk=None):
-        profile = request.user.profile
-        following_profile = get_object_or_404(Agency, id=pk)
-        if request.method == 'POST':
-            profile.following_agencies.add(following_profile)
-            return Response(status=status.HTTP_200_OK)
-        elif request.method == 'DELETE':
-            profile.following_agencies.remove(following_profile)
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    @extend_schema(request=None, responses={status.HTTP_204_NO_CONTENT: None},
+                   description="UnFollow Model\n"
+                               "\t-204: The following is deleted successfully.\n")
+    @action(detail=True, methods=['POST'], name='Unfollow Model', url_path='unfollow')
+    def unfollow(self, request, pk=None):
+        # Check the type of the user, in case of not being model or director, an exception is thrown
+        account = self.get_user_associated_model_or_403()
+        # Get the target profile
+        following_profile = self.get_object()
+        # Remove the target from followers
+        account.following_models.remove(following_profile)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @extend_schema(request=None, responses={status.HTTP_200_OK: ProfileSerializer(many=True),
+                                            status.HTTP_403_FORBIDDEN: None})
+    @action(detail=False, methods=['GET'], name='Get My Followers', url_path='my-followers')
+    def my_followers(self, request, *args, **kwargs):
+        # Check the type of the user, in case of not being model or director, an exception is thrown
+        account = self.get_user_associated_model_or_403()
+        # Assign user followers as queryset
+        self.queryset = account.following_models.all()
+        return self.list(request, *args, **kwargs)
+
+    @extend_schema(request=None, responses={status.HTTP_200_OK: ProfileSerializer(many=True),
+                                            status.HTTP_403_FORBIDDEN: None})
+    @action(detail=True, methods=['GET'], name='Get Followers', url_path='followers')
+    def followers(self, request, *args, **kwargs):
+        # Check the type of the user, in case of not being model or director, an exception is thrown
+        account = self.get_object()
+        # Assign user followers as queryset
+        self.queryset = account.following_models.all()
+        return self.list(request, *args, **kwargs)
 
 
 class ProfileImageViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, UpdateModelMixin, ListModelMixin,
