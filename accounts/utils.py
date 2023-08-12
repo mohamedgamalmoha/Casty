@@ -1,4 +1,4 @@
-from typing import Type
+from typing import Type, Union
 
 from django.db import models
 
@@ -50,3 +50,12 @@ def is_owner(user: User, obj: Type[models.Model]) -> bool:
         if getattr(user, 'agency', None) == user.agency:
             return True
     return False
+
+
+def get_user_associated_model(user: User) -> Union[Profile, Agency, None]:
+    """Get the associated model (Profile or Agency or None) for a user."""
+    if is_model_user(user):
+        return getattr(user, 'profile')
+    if is_director_model(user):
+        return getattr(user, 'agency')
+    return None
