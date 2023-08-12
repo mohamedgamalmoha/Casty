@@ -12,6 +12,7 @@ from rest_flex_fields import is_expanded
 from drf_spectacular.utils import extend_schema
 
 from profiles.models import Profile
+from accounts.utils import is_director_model
 from accounts.api.permissions import IsDirectorUser
 from accounts.api.mixins import AllowAnyInSafeMethodOrCustomPermissionMixin
 from agencies.models import Agency, PreviousWork, AgencyImage
@@ -29,7 +30,7 @@ class PreviousWorkViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, ModelView
     def get_queryset(self):
         queryset = super().get_queryset()
         user = self.request.user
-        if self.action == 'me' and hasattr(user, 'agency'):
+        if self.action == 'me' and is_director_model(user):
             queryset = queryset.filter(profile=user.agency)
         return queryset
 
@@ -129,7 +130,7 @@ class AgencyImageViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, UpdateMode
     def get_queryset(self):
         queryset = super().get_queryset()
         user = self.request.user
-        if self.action == 'me' and hasattr(user, 'agency'):
+        if self.action == 'me' and is_director_model(user):
             queryset = queryset.filter(agency=user.agency)
         return queryset
 

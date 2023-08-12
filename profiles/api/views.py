@@ -12,6 +12,7 @@ from rest_flex_fields import is_expanded
 from drf_spectacular.utils import extend_schema
 
 from agencies.models import Agency
+from accounts.utils import is_model_user
 from accounts.api.permissions import IsModelUser
 from accounts.api.mixins import AllowAnyInSafeMethodOrCustomPermissionMixin
 from profiles.models import Skill, Language, Profile, SocialLink, PreviousExperience, ProfileImage
@@ -41,7 +42,7 @@ class SocialLinkViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, ModelViewSe
     def get_queryset(self):
         queryset = super().get_queryset()
         user = self.request.user
-        if self.action == 'me' and hasattr(user, 'profile'):
+        if self.action == 'me' and is_model_user(user):
             queryset = queryset.filter(profile=user.profile)
         return queryset
 
@@ -66,7 +67,7 @@ class PreviousExperienceViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, Mod
     def get_queryset(self):
         queryset = super().get_queryset()
         user = self.request.user
-        if self.action == 'me' and hasattr(user, 'profile'):
+        if self.action == 'me' and is_model_user(user):
             queryset = queryset.filter(profile=user.profile)
         return queryset
 
@@ -176,7 +177,7 @@ class ProfileImageViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, UpdateMod
     def get_queryset(self):
         queryset = super().get_queryset()
         user = self.request.user
-        if self.action == 'me' and hasattr(user, 'profile'):
+        if self.action == 'me' and is_model_user(user):
             queryset = queryset.filter(profile=user.profile)
         return queryset
 
