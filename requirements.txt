@@ -29,7 +29,6 @@ importlib-resources==6.0.0
 inflection==0.5.1
 jsonschema==4.18.3
 jsonschema-specifications==2023.6.1
-modeltranslation==0.25
 oauthlib==3.2.2
 phonenumbers==8.13.16
 Pillow==10.0.0
