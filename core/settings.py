@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'django_filters',
     'drf_spectacular',
+    'djmoney',
 
     # Custom apps
     'accounts',
@@ -805,4 +806,14 @@ TRANSLATABLE_MODEL_MODULES = [
 ]
 LOCALE_PATHS = [
     BASE_DIR / 'locale'
+]
+
+
+# Money Settings
+DEFAULT_CURRENCY = 'EGP'
+CURRENCIES = ('EGP', 'USD', 'EUR')
+CURRENCY_CHOICES = [
+    ('USD', _('USD $')),
+    ('EUR', _('EUR €')),
+    ('EGP', _('EGP £')),
 ]
