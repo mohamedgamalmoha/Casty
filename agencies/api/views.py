@@ -15,7 +15,7 @@ from drf_spectacular.utils import extend_schema
 from agencies.models import Agency, PreviousWork, AgencyImage
 from accounts.api.permissions import IsDirectorUser, IsModelUser
 from accounts.api.mixins import AllowAnyInSafeMethodOrCustomPermissionMixin
-from accounts.utils import is_director_model, is_owner, get_user_associated_model
+from accounts.utils import is_director_user, is_owner, get_user_associated_model
 from .filters import AgencyFilter, PreviousWorkFilter
 from .serializers import AgencySerializer, PreviousWorkSerializer, AgencyImageSerializer
 
@@ -151,7 +151,7 @@ class AgencyImageViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, UpdateMode
     def get_queryset(self):
         queryset = super().get_queryset()
         user = self.request.user
-        if self.action == 'me' and is_director_model(user):
+        if self.action == 'me' and is_director_user(user):
             queryset = queryset.filter(agency=user.agency)
         return queryset
 

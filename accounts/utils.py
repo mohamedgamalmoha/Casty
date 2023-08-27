@@ -33,7 +33,7 @@ def is_model_user(user: User) -> bool:
     return _is_instance_user(user, Profile) and _is_user_with_role(user, RoleChoices.MODEL)
 
 
-def is_director_model(user: User) -> bool:
+def is_director_user(user: User) -> bool:
     """Check whether the user has an instance of director and match the type."""
     return _is_instance_user(user, Agency) and _is_user_with_role(user, RoleChoices.DIRECTOR)
 
@@ -46,7 +46,7 @@ def is_owner(user: User, obj: Type[models.Model]) -> bool:
     if is_model_user(user) and hasattr(obj, 'profile'):
         if getattr(obj, 'profile', None) == user.profile:
             return True
-    if is_director_model(user) and hasattr(obj, 'agency'):
+    if is_director_user(user) and hasattr(obj, 'agency'):
         if getattr(user, 'agency', None) == user.agency:
             return True
     return False
@@ -56,6 +56,6 @@ def get_user_associated_model(user: User) -> Union[Profile, Agency, None]:
     """Get the associated model (Profile or Agency or None) for a user."""
     if is_model_user(user):
         return getattr(user, 'profile')
-    if is_director_model(user):
+    if is_director_user(user):
         return getattr(user, 'agency')
     return None
