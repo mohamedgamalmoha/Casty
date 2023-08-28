@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -238,3 +240,11 @@ class SoloContract(BaseContract):
         verbose_name = _('Solo Contract')
         verbose_name_plural = _('Solo Contracts')
         ordering = ('-create_at', '-update_at')
+
+
+@receiver(post_save, sender=ContractRequest)
+def assign_money_offer(sender, instance, created, *args, **kwargs):
+    # Assign contract`s money offer as default for contract request
+    if created and instance and not instance.money_offer and instance.contract and instance.contract.money_offer:
+        instance.money_offer = instance.cotract.money_offer
+        instance.save()
