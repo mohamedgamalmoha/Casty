@@ -738,12 +738,15 @@ JAZZMIN_SETTINGS = {
     # for the full list of 5.13.0 free icon classes
     "icons": {
         "auth": "fas fa-users-cog",
-        "auth.Group": "fas fa-users",
+        "auth.group": "fas fa-users",
         "accounts.user": "fas fa-user",
         "profiles.profile": "fas fa-id-card",
         "profiles.language": "fas fa-globe-americas",
         "profiles.skill": "fas fa-ribbon",
         "agencies.agency": "far fa-building",
+        "reports.report": "fas fa-exclamation-triangle",
+        "contracts.contract": "fas fa-file-signature",
+        "contracts.solocontract": "fas fa-handshake",
         # "info.aboutus": "fas fa-info",
         # "info.contactus": "fas fa-headset",
         # "info.cookiepolicy": "fas fa-cookie-bite",
