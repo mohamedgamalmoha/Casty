@@ -748,14 +748,14 @@ JAZZMIN_SETTINGS = {
         "reports.report": "fas fa-exclamation-triangle",
         "contracts.contract": "fas fa-file-signature",
         "contracts.solocontract": "fas fa-handshake",
-        # "info.aboutus": "fas fa-info",
-        # "info.contactus": "fas fa-headset",
-        # "info.cookiepolicy": "fas fa-cookie-bite",
-        # "info.faqs": "fas fa-question",
-        # "info.headerimage": "fas fa-images",
-        # "info.privacypolicy": "fas fa-user-secret",
-        # "info.termsofservice": "fas fa-handshake",
-        # "info.maininfo": "fas fa-server"
+        "info.aboutus": "fas fa-info",
+        "info.contactus": "fas fa-headset",
+        "info.cookiepolicy": "fas fa-cookie-bite",
+        "info.faqs": "fas fa-question",
+        "info.headerimage": "fas fa-images",
+        "info.privacypolicy": "fas fa-user-secret",
+        "info.termsofservice": "fas fa-handshake",
+        "info.maininfo": "fas fa-server"
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
