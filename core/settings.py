@@ -69,7 +69,8 @@ INSTALLED_APPS = [
     'profiles',
     'agencies',
     'reports',
-    'contracts'
+    'contracts',
+    'info'
 ]
 
 MIDDLEWARE = [
