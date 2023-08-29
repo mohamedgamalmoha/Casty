@@ -4,6 +4,7 @@ from django.db import models
 
 from agencies.models import Agency
 from profiles.models import Profile
+from contracts.models import ContractRequest
 from .models import User
 from .enums import RoleChoices
 
@@ -47,7 +48,10 @@ def is_owner(user: User, obj: Type[models.Model]) -> bool:
         if getattr(obj, 'profile', None) == user.profile:
             return True
     if is_director_user(user) and hasattr(obj, 'agency'):
-        if getattr(user, 'agency', None) == user.agency:
+        if getattr(obj, 'agency', None) == user.agency:
+            return True
+    if is_director_user(user) and isinstance(obj, ContractRequest):
+        if obj.contract.agency == user.agency:
             return True
     return False
 
