@@ -8,6 +8,7 @@ from rest_flex_fields import FlexFieldsModelSerializer
 from accounts.utils import is_owner
 from reports.models import Report, ReportResponse
 from agencies.models import Agency, PreviousWork, AgencyImage
+from contracts.models import Contract, ContractRequest, SoloContract
 from profiles.models import Profile, SocialLink, PreviousExperience, ProfileImage
 from .utils import get_object_or_none
 
@@ -20,6 +21,9 @@ MODELS_MAP = {
     'agency': Agency,
     'previous-work': PreviousWork,
     'agency-image': AgencyImage,
+    'contract': Contract,
+    'contract-request': ContractRequest,
+    'solo-contract': SoloContract
 }
 
 
