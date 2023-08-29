@@ -20,6 +20,8 @@ class Rate(models.Model):
     title = models.CharField(null=True, blank=True, max_length=250, verbose_name=_('Title'))
     comment = models.TextField(null=True, blank=True, verbose_name=_('Comment'))
 
+    is_active = models.BooleanField(default=True, blank=True, verbose_name=_('Active'))
+
     # Fields for the generic foreign key relation
     content_type = models.ForeignKey(ContentType, null=True, blank=True, on_delete=models.CASCADE,
                                      verbose_name=_('Content Type'))
