@@ -749,6 +749,7 @@ JAZZMIN_SETTINGS = {
         "reports.report": "fas fa-exclamation-triangle",
         "contracts.contract": "fas fa-file-signature",
         "contracts.solocontract": "fas fa-handshake",
+        "reviews.Rate": "fas fa-star",
         "info.aboutus": "fas fa-info",
         "info.contactus": "fas fa-headset",
         "info.cookiepolicy": "fas fa-cookie-bite",
