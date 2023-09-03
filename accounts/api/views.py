@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from djoser.conf import settings
+from djoser.utils import logout_user
 from djoser.views import UserViewSet as DjoserUserViewSet
 from djoser.compat import get_user_email, get_user_email_field_name
 from drf_spectacular.utils import extend_schema, OpenApiResponse
@@ -64,6 +65,10 @@ class UserViewSet(DestroyMethodNotAllowedMixin, DjoserUserViewSet):
         if settings.SEND_ACTIVATION_EMAIL and not user.is_active:
             settings.EMAIL.activation(self.request, context).send(to)
 
+        # logout after change the username field
+        if settings.LOGOUT_ON_EMAIL_CHANGE:
+            logout_user(self.request)
+
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     @action(["post"], detail=False, url_path=f"reset_{User.USERNAME_FIELD}_confirm")
@@ -96,5 +101,9 @@ class UserViewSet(DestroyMethodNotAllowedMixin, DjoserUserViewSet):
         # send activation mail in case of being not activated, to guarantee that he owns this email
         if settings.SEND_ACTIVATION_EMAIL and not user.is_active:
             settings.EMAIL.activation(self.request, context).send(to)
+
+        # logout after change the username field
+        if settings.LOGOUT_ON_EMAIL_CHANGE:
+            logout_user(self.request)
 
         return Response(status=status.HTTP_204_NO_CONTENT)

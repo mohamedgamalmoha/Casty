@@ -381,6 +381,7 @@ DJOSER = {
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
     'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['/google', '/facebook'],
     "LOGOUT_ON_PASSWORD_CHANGE": True,
+    "LOGOUT_ON_EMAIL_CHANGE": True,
     "CREATE_SESSION_ON_LOGIN": False,
 }
 
