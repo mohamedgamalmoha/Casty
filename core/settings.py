@@ -551,7 +551,7 @@ SPECTACULAR_SETTINGS = {
     'RENDERER_WHITELIST': None,
 
     # Option for turning off error and warn messages
-    'DISABLE_ERRORS_AND_WARNINGS': False,
+    'DISABLE_ERRORS_AND_WARNINGS': True,
 
     # Runs exemplary schema generation and emits warnings as part of "./manage.py check --deploy"
     'ENABLE_DJANGO_DEPLOY_CHECK': True,
