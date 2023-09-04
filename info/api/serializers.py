@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from info.models import MainInfo, AboutUs, TermsOfService, CookiePolicy, PrivacyPolicy, FAQs, ContactUs, HeaderImage
+from info.models import (MainInfo, AboutUs, TermsOfService, CookiePolicy, PrivacyPolicy, FAQs, ContactUs, HeaderImage,
+                         TeamMember)
 from .mixins import TranslationModelSerializerMixin
 
 
@@ -58,3 +59,21 @@ class HeaderImageSerializer(TranslationModelSerializerMixin, serializers.ModelSe
     class Meta:
         model = HeaderImage
         exclude = ()
+
+
+class TeamMemberSerializer(TranslationModelSerializerMixin, serializers.ModelSerializer):
+
+    class Meta:
+        model = TeamMember
+        exclude = ()
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        request = self.context['request']
+
+        # Set default image in case of being none
+        if not instance.image:
+            data['image'] = request.build_absolute_uri('/static/images/profile_male.png')
+
+        return data

@@ -1,7 +1,7 @@
 from django.db import models
 from django_filters import rest_framework as filters
 
-from info.models import FAQs, AboutUs, TermsOfService, CookiePolicy, PrivacyPolicy
+from info.models import FAQs, AboutUs, TermsOfService, CookiePolicy, PrivacyPolicy, TeamMember
 
 
 class CustomSearchFilter(filters.FilterSet):
@@ -50,3 +50,15 @@ class FAQsFilter(filters.FilterSet):
     def custom_search(self, queryset, name, value):
         """Search in both quote and answer"""
         return queryset.filter(models.Q(quote__icontains=value) | models.Q(answer__icontains=value))
+
+
+class TeamMemberFilter(filters.FilterSet):
+    search = filters.CharFilter(method='custom_search', label="Search in position & about")
+
+    class Meta:
+        model = TeamMember
+        fields = ('is_active', 'join_date', 'search')
+
+    def custom_search(self, queryset, name, value):
+        """Search in position & about"""
+        return queryset.filter(models.Q(position__icontains=value) | models.Q(about__icontains=value))

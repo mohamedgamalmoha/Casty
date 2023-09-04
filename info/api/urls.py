@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (MainInfoAPIView, FAQsAPIView, AboutUsAPIView, TermsOfServiceAPIView, CookiePolicyAPIView,
-                    PrivacyPolicyAPIView, ContactUsAPIView, HeaderImageAPIView)
+                    PrivacyPolicyAPIView, ContactUsAPIView, HeaderImageAPIView, TeamMemberAPIView)
 
 app_name = 'info'
 
@@ -13,4 +13,5 @@ urlpatterns = [
     path('contact-us/', ContactUsAPIView.as_view(), name='contact_us'),
     path('header-image/', HeaderImageAPIView.as_view(), name='header_images'),
     path('frequently-asked-question/', FAQsAPIView.as_view(), name='fqa'),
+    path('team-members/', TeamMemberAPIView.as_view(), name='team_members'),
 ]
