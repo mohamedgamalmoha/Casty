@@ -147,3 +147,22 @@ class HeaderImage(models.Model):
         verbose_name = _('Home Page Image')
         verbose_name_plural = _('Home Page Images')
         ordering = ('-create_at', '-update_at')
+
+
+class TeamMember(models.Model):
+    name = models.CharField(max_length=100, verbose_name=_('Name'))
+    position = models.CharField(max_length=100, verbose_name=_('Position'))
+    about = models.TextField(blank=True, verbose_name=_('About'))
+    image = models.ImageField(upload_to='members/', verbose_name=_('Image'))
+    join_date = models.DateField(verbose_name=_('Join Date'))
+    is_active = models.BooleanField(blank=True, null=True, default=True, verbose_name=_('Is Active'))
+    create_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation Date'))
+    update_at = models.DateTimeField(auto_now=True, verbose_name=_('Update Date'))
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('Team Member')
+        verbose_name_plural = _('Team Members')
+        ordering = ('-create_at', '-update_at')
