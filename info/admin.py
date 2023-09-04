@@ -3,8 +3,10 @@ from django.utils.translation import gettext_lazy as _
 
 from modeltranslation.admin import TranslationAdmin
 
+from profiles.utils import create_html_image
 from .utils import get_model_fields_names, create_html_icon_link
-from .models import MainInfo, FAQs, AboutUs, TermsOfService, CookiePolicy, PrivacyPolicy, ContactUs, HeaderImage
+from .models import (MainInfo, FAQs, AboutUs, TermsOfService, CookiePolicy, PrivacyPolicy, ContactUs, HeaderImage,
+                     TeamMember)
 
 
 class MainInfoAdmin(TranslationAdmin):
@@ -106,6 +108,25 @@ class HeaderImageAdmin(TranslationAdmin):
     readonly_fields = ('create_at', 'update_at')
 
 
+class TeamMemberAdmin(TranslationAdmin):
+    list_display = ('name', 'position', 'is_active', 'create_at', 'update_at')
+    readonly_fields = ('create_at', 'update_at', 'show_image')
+    list_filter = ('is_active', )
+    search_fields = ('position', 'about')
+    fieldsets = (
+        (_('Main Info'), {'fields': ('name', 'position', 'about', 'join_date', 'is_active')}),
+        (_('Image'), {'fields': ('image', 'show_image')}),
+        (_('Dates'), {'fields': ('create_at', 'update_at')}),
+    )
+
+    def show_image(self, obj):
+        if obj.image:
+            return create_html_image(obj.image)
+        return ''
+
+    show_image.short_description = ''
+
+
 admin.site.register(MainInfo, MainInfoAdmin)
 admin.site.register(FAQs, FAQsAdmin)
 admin.site.register(AboutUs, TitledDescriptiveTranslationAdmin)
@@ -114,3 +135,4 @@ admin.site.register(PrivacyPolicy, TitledDescriptiveTranslationAdmin)
 admin.site.register(TermsOfService, TitledDescriptiveTranslationAdmin)
 admin.site.register(ContactUs, ContactUsAdmin)
 admin.site.register(HeaderImage, HeaderImageAdmin)
+admin.site.register(TeamMember, TeamMemberAdmin)
