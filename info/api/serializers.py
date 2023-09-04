@@ -1,44 +1,45 @@
 from rest_framework import serializers
 
 from info.models import MainInfo, AboutUs, TermsOfService, CookiePolicy, PrivacyPolicy, FAQs, ContactUs, HeaderImage
+from .mixins import TranslationModelSerializerMixin
 
 
-class MainInfoSerializer(serializers.ModelSerializer):
+class MainInfoSerializer(TranslationModelSerializerMixin, serializers.ModelSerializer):
 
     class Meta:
         model = MainInfo
         exclude = ()
 
 
-class AboutUsSerializer(serializers.ModelSerializer):
+class AboutUsSerializer(TranslationModelSerializerMixin, serializers.ModelSerializer):
 
     class Meta:
         model = AboutUs
         exclude = ()
 
 
-class TermsOfServiceSerializer(serializers.ModelSerializer):
+class TermsOfServiceSerializer(TranslationModelSerializerMixin, serializers.ModelSerializer):
 
     class Meta:
         model = TermsOfService
         exclude = ()
 
 
-class CookiePolicySerializer(serializers.ModelSerializer):
+class CookiePolicySerializer(TranslationModelSerializerMixin, serializers.ModelSerializer):
 
     class Meta:
         model = CookiePolicy
         exclude = ()
 
 
-class PrivacyPolicySerializer(serializers.ModelSerializer):
+class PrivacyPolicySerializer(TranslationModelSerializerMixin, serializers.ModelSerializer):
 
     class Meta:
         model = PrivacyPolicy
         exclude = ()
 
 
-class FAQsSerializer(serializers.ModelSerializer):
+class FAQsSerializer(TranslationModelSerializerMixin, serializers.ModelSerializer):
 
     class Meta:
         model = FAQs
@@ -52,7 +53,7 @@ class ContactUsSerializer(serializers.ModelSerializer):
         exclude = ('create_at', 'update_at')
 
 
-class HeaderImageSerializer(serializers.ModelSerializer):
+class HeaderImageSerializer(TranslationModelSerializerMixin, serializers.ModelSerializer):
 
     class Meta:
         model = HeaderImage
