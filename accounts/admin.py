@@ -1,11 +1,10 @@
-from django.contrib import admin, messages
-from django.contrib.auth.admin import UserAdmin
+from django.contrib import messages
+from django.contrib.auth.models import Group
+from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from django.utils.translation import gettext_lazy as _, ngettext
 
-from social_django.models import UserSocialAuth, Nonce, Association
-from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
-
 from .models import User
+from .sites import admin_site
 
 
 class CustomUserAdmin(UserAdmin):
@@ -65,9 +64,5 @@ class CustomUserAdmin(UserAdmin):
     activate_users.short_description = _('Activate selected Users')
 
 
-admin.site.unregister(Nonce)
-admin.site.unregister(Association)
-admin.site.unregister(UserSocialAuth)
-admin.site.unregister(BlacklistedToken)
-admin.site.unregister(OutstandingToken)
-admin.site.register(User, CustomUserAdmin)
+admin_site.register(Group, GroupAdmin)
+admin_site.register(User, CustomUserAdmin)

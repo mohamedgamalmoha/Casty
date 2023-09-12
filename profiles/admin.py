@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
+from accounts.sites import admin_site
 from .mixins import AdminQueryset
 from .models import Skill, Language, Profile, SocialLink, PreviousExperience, ProfileImage
 from .utils import create_html_image
@@ -118,6 +119,6 @@ class ProfileAdmin(AdminQueryset, admin.ModelAdmin):
     inlines = [SocialLinkInlineAdmin, PreviousExperienceInlineAdmin, ProfileImageInlineAdmin]
 
 
-admin.site.register(Skill, SkillAdmin)
-admin.site.register(Profile, ProfileAdmin)
-admin.site.register(Language, LanguageAdmin)
+admin_site.register(Skill, SkillAdmin)
+admin_site.register(Profile, ProfileAdmin)
+admin_site.register(Language, LanguageAdmin)

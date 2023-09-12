@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from modeltranslation.admin import TranslationAdmin
 
+from accounts.sites import admin_site
 from profiles.utils import create_html_image
 from .utils import get_model_fields_names, create_html_icon_link
 from .models import (MainInfo, FAQs, AboutUs, TermsOfService, CookiePolicy, PrivacyPolicy, ContactUs, HeaderImage,
@@ -127,12 +128,12 @@ class TeamMemberAdmin(TranslationAdmin):
     show_image.short_description = ''
 
 
-admin.site.register(MainInfo, MainInfoAdmin)
-admin.site.register(FAQs, FAQsAdmin)
-admin.site.register(AboutUs, TitledDescriptiveTranslationAdmin)
-admin.site.register(CookiePolicy, TitledDescriptiveTranslationAdmin)
-admin.site.register(PrivacyPolicy, TitledDescriptiveTranslationAdmin)
-admin.site.register(TermsOfService, TitledDescriptiveTranslationAdmin)
-admin.site.register(ContactUs, ContactUsAdmin)
-admin.site.register(HeaderImage, HeaderImageAdmin)
-admin.site.register(TeamMember, TeamMemberAdmin)
+admin_site.register(MainInfo, MainInfoAdmin)
+admin_site.register(FAQs, FAQsAdmin)
+admin_site.register(AboutUs, TitledDescriptiveTranslationAdmin)
+admin_site.register(CookiePolicy, TitledDescriptiveTranslationAdmin)
+admin_site.register(PrivacyPolicy, TitledDescriptiveTranslationAdmin)
+admin_site.register(TermsOfService, TitledDescriptiveTranslationAdmin)
+admin_site.register(ContactUs, ContactUsAdmin)
+admin_site.register(HeaderImage, HeaderImageAdmin)
+admin_site.register(TeamMember, TeamMemberAdmin)

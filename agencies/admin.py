@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
+from accounts.sites import admin_site
 from profiles.utils import create_html_image
 from .models import Agency, PreviousWork, AgencyImage
 
@@ -55,4 +56,4 @@ class AgencyAdmin(admin.ModelAdmin):
     list_per_page = 20
 
 
-admin.site.register(Agency, AgencyAdmin)
+admin_site.register(Agency, AgencyAdmin)

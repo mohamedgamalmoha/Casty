@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
+from accounts.sites import admin_site
 from reports.utils import get_change_admin_url
 from .models import Rate
 from .filters import RateListFilter
@@ -30,4 +31,4 @@ class RateAdmin(admin.ModelAdmin):
     object_link.short_description = _('Rated Object Link')
 
 
-admin.site.register(Rate, RateAdmin)
+admin_site.register(Rate, RateAdmin)

@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
+from accounts.sites import admin_site
 from .forms import ReportResponseForm
 from .utils import get_change_admin_url
 from .models import Report, ReportResponse
@@ -47,4 +48,4 @@ class ReportAdmin(admin.ModelAdmin):
         formset.save()
 
 
-admin.site.register(Report, ReportAdmin)
+admin_site.register(Report, ReportAdmin)

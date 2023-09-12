@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
+from accounts.sites import admin_site
 from .models import Contract, ContractRequest, SoloContract
 
 
@@ -52,5 +53,5 @@ class SoloContractAdmin(admin.ModelAdmin):
     )
 
 
-admin.site.register(Contract, ContractAdmin)
-admin.site.register(SoloContract, SoloContractAdmin)
+admin_site.register(Contract, ContractAdmin)
+admin_site.register(SoloContract, SoloContractAdmin)
