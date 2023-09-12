@@ -71,7 +71,8 @@ INSTALLED_APPS = [
     'reports',
     'contracts',
     'info',
-    'reviews'
+    'reviews',
+    'stats'
 ]
 
 MIDDLEWARE = [
@@ -701,9 +702,10 @@ JAZZMIN_SETTINGS = {
 
         # Url that gets reversed (Permissions can be added)
         {"name": _("Home"),  "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": _("Charts"), "url": "admin:charts", "permissions": ["auth.view_user"]},
 
         # model admin to link to (Permissions checked against model)
-        {"app": "accounts"},
+        # {"app": "accounts"},
     ],
 
     #############

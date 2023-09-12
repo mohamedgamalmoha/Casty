@@ -42,6 +42,7 @@ urlpatterns = [
     path('api/', include('contracts.api.urls', namespace='contracts')),
     path('api/', include('info.api.urls', namespace='info')),
     path('api/', include('reviews.api.urls', namespace='reviews')),
+    path('api/', include('stats.api.urls', namespace='stats')),
 ]
 
 if settings.DEBUG:
