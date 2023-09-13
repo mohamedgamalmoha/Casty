@@ -19,9 +19,8 @@ class CustomAdminSite(AdminSite):
             "subtitle": None,
             "app_list": app_list,
             **(extra_context or {}),
-            'token': refresh.access_token
+            'token': str(refresh.access_token)
         }
-
         request.current_app = self.name
 
         return TemplateResponse(request, "admin/charts.html", context)
