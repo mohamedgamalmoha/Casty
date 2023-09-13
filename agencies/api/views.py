@@ -30,7 +30,7 @@ class PreviousWorkViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, ModelView
     def get_queryset(self):
         queryset = super().get_queryset()
         user = self.request.user
-        if self.action == 'me' and is_director_model(user):
+        if self.action == 'me' and is_director_user(user):
             queryset = queryset.filter(profile=user.agency)
         return queryset
 
