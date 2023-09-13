@@ -2,6 +2,7 @@ from django.urls import path
 from django.contrib.admin import AdminSite
 from django.utils.functional import LazyObject
 from django.template.response import TemplateResponse
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class CustomAdminSite(AdminSite):
@@ -10,12 +11,15 @@ class CustomAdminSite(AdminSite):
     def charts(self, request, extra_context=None):
         app_list = self.get_app_list(request)
 
+        refresh = RefreshToken.for_user(request.user)
+
         context = {
             **self.each_context(request),
             "title": self.index_title,
             "subtitle": None,
             "app_list": app_list,
             **(extra_context or {}),
+            'token': refresh.access_token
         }
 
         request.current_app = self.name
