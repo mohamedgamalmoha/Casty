@@ -18,3 +18,8 @@ class RoleChoices(models.IntegerChoices):
     @classmethod
     def exclude_admin(cls):
         return cls.excluded([cls.ADMIN.value])
+
+
+def get_role_label_from_value(value):
+    RoleDict = dict(RoleChoices.choices)
+    return RoleDict.get(value)

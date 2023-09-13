@@ -60,3 +60,8 @@ class ReportResponseChoices(models.IntegerChoices):
     FEEDBACK_IMPROVEMENT = 7, _('Your feedback is important to us and helps us improve our products/services')
     FOLLOW_UP = 8, _('Feel free to reach out if you have any questions or need further assistance')
     CLOSING = 9, _('Thank you for your patience and understanding as we resolve this')
+
+
+def get_type_label_from_value(value):
+    TypeDict = dict(ReportTypeChoices.choices)
+    return TypeDict.get(value)
