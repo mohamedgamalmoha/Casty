@@ -1,0 +1,13 @@
+{% extends "rest_framework/base.html" %}
+{% load static %}
+
+{% block head %}
+    {{ block.super }}
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+{% endblock %}
+
+{% block branding %}
+    <a class='navbar-brand' rel="nofollow" href='{% url "swagger" %}'>
+        Casty API Docs
+    </a>
+{% endblock %}
