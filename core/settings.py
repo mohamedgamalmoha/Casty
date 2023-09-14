@@ -437,7 +437,10 @@ SPECTACULAR_SETTINGS = {
     # list of authentication/permission classes for spectacular's views.
     'SERVE_PERMISSIONS': ['rest_framework.permissions.AllowAny'],
     # None will default to DRF's AUTHENTICATION_CLASSES
-    'SERVE_AUTHENTICATION': None,
+    'SERVE_AUTHENTICATION': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 
     # Dictionary of general configuration to pass to the SwaggerUI({ ... })
     # https://swagger.io/docs/open-source-tools/swagger-ui/usage/configuration/
@@ -476,7 +479,8 @@ SPECTACULAR_SETTINGS = {
     # Postprocessing functions that run at the end of schema generation.
     # must satisfy interface result = hook(generator, request, public, result)
     'POSTPROCESSING_HOOKS': [
-        'drf_spectacular.hooks.postprocess_schema_enums'
+        'drf_spectacular.hooks.postprocess_schema_enums',
+        'core.hocks.postprocessing_exclude_stats_path'
     ],
 
     # Preprocessing functions that run before schema generation.
