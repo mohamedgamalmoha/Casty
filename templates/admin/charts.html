@@ -6,25 +6,26 @@
 {% endblock %}
 
 {% block content %}
-     <div class="col-lg-12 col-12">
-         <div class="row">
-             <div class="col-md-12 col-sm-12">
-                 <div class="card">
-                     <div class="card-header">
-                         <h5 class="m-0">{% trans 'Charts' %}</h5>
-                     </div>
-                     <div class="card-body">
-                         <div class="row">
-                             {# Charts are added here #}
-                         </div>
+<div class="col-lg-12 col-12">
+     <div class="row">
+         <div class="col-md-12 col-sm-12">
+             <div class="card">
+                 <div class="card-header">
+                     <h5 class="m-0">{% trans 'Charts' %}</h5>
+                 </div>
+                 <div class="card-body">
+                     <div class="row">
+                         {# Charts are added here #}
                      </div>
                  </div>
              </div>
          </div>
-    </div>
+     </div>
+</div>
 {% endblock %}
 
 {% block extrajs %}
+{{ token|json_script:"token" }}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{% static 'admin/js/charts.js' %}"></script>
 {% endblock %}
