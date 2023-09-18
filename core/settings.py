@@ -352,13 +352,13 @@ DJOSER = {
         'token_create': 'djoser.serializers.TokenCreateSerializer',
     },
     "EMAIL": {
-        "activation": "accounts.mail.CustomActivationEmail",
-        "confirmation": "accounts.email.CustomConfirmationEmail",
-        "password_reset": "accounts.email.CustomPasswordResetEmail",
-        "password_changed_confirmation": "accounts.email.CustomPasswordChangedConfirmationEmail",
-        "username_changed_confirmation": "accounts.email.CustomUsernameChangedConfirmationEmail",
-        "username_reset": "accounts.email.CustomUsernameResetEmail",
-        "delete": "accounts.email.DeleteEmail"
+        "activation": "accounts.wrapper.EmailWrapper",
+        "confirmation": "accounts.wrapper.EmailWrapper",
+        "password_reset": "accounts.wrapper.EmailWrapper",
+        "password_changed_confirmation": "accounts.wrapper.EmailWrapper",
+        "username_changed_confirmation": "accounts.wrapper.EmailWrapper",
+        "username_reset": "accounts.wrapper.EmailWrapper",
+        "delete": "accounts.wrapper.EmailWrapper"
     },
     "TOKEN_MODEL": "rest_framework.authtoken.models.Token",
     "CONSTANTS": {"messages": "djoser.constants.Messages"},
