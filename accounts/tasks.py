@@ -2,17 +2,12 @@ from collections import namedtuple
 
 from django.apps import apps
 from django.db import models
-from django.conf import settings
 from django.forms import model_to_dict
-from django.contrib.auth import get_user_model
 from django.contrib.sites.shortcuts import get_current_site
 
 from celery import shared_task
 
 from .email import URL_EMAIL_MAP
-
-
-User = get_user_model()
 
 
 def model_to_dict_with_meta(obj):
@@ -84,18 +79,3 @@ def send_mail(context, to):
     context = process_context(context)
     EmailClass = URL_EMAIL_MAP[context['url_name']]
     EmailClass(context=context).send(to)
-
-
-class EmailWrapper:
-
-    def __init__(self, request, context):
-        self.request = request
-        self.context = context
-
-    def send(self, to):
-        self.to = to
-        context = process_context_with_request(self.context, self.request)
-        if getattr(settings, 'CELERY_EMAIL_USE', True):
-            send_mail.delay(context, self.to)
-        else:
-            send_mail(context, self.to)
