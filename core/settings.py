@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_spectacular',
     'djmoney',
+    'celery',
 
     # Custom apps
     'accounts',
@@ -831,3 +832,12 @@ CURRENCY_CHOICES = [
     ('EUR', _('EUR €')),
     ('EGP', _('EGP £')),
 ]
+
+
+# Celery Configuration Options
+CELERY_EMAIL_USE = False
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
