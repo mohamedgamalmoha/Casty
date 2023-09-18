@@ -28,6 +28,13 @@ class UserViewSet(DestroyMethodNotAllowedMixin, DjoserUserViewSet):
             queryset = queryset.exclude(id=user.id)
         return queryset
 
+    def perform_destroy(self, instance):
+        if getattr(settings, 'SEND_DELETE_CONFIRMATION', True):
+            context = {"user": instance}
+            to = [get_user_email(instance)]
+            settings.EMAIL.delete(self.request, context).send(to)
+        instance.delete()
+
     @extend_schema(responses={status.HTTP_405_METHOD_NOT_ALLOWED:
                               OpenApiResponse(description='Delete user is not allowed')})
     def destroy(self, request, *args, **kwargs):

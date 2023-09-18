@@ -351,12 +351,13 @@ DJOSER = {
         'token_create': 'djoser.serializers.TokenCreateSerializer',
     },
     "EMAIL": {
-        "activation": "djoser.email.ActivationEmail",
-        "confirmation": "djoser.email.ConfirmationEmail",
-        "password_reset": "djoser.email.PasswordResetEmail",
-        "password_changed_confirmation": "djoser.email.PasswordChangedConfirmationEmail",
-        "username_changed_confirmation": "djoser.email.UsernameChangedConfirmationEmail",
-        "username_reset": "djoser.email.UsernameResetEmail",
+        "activation": "accounts.mail.CustomActivationEmail",
+        "confirmation": "accounts.email.CustomConfirmationEmail",
+        "password_reset": "accounts.email.CustomPasswordResetEmail",
+        "password_changed_confirmation": "accounts.email.CustomPasswordChangedConfirmationEmail",
+        "username_changed_confirmation": "accounts.email.CustomUsernameChangedConfirmationEmail",
+        "username_reset": "accounts.email.CustomUsernameResetEmail",
+        "delete": "accounts.email.DeleteEmail"
     },
     "TOKEN_MODEL": "rest_framework.authtoken.models.Token",
     "CONSTANTS": {"messages": "djoser.constants.Messages"},
@@ -377,6 +378,7 @@ DJOSER = {
     "USERNAME_RESET_SHOW_EMAIL_NOT_FOUND": False,
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": False,
     "USERNAME_CHANGED_EMAIL_CONFIRMATION": False,
+    "SEND_DELETE_CONFIRMATION": True,
     'USERNAME_CHANGED_EMAIL_CONFIRMATION¶': bool(env('USERNAME_CHANGED_EMAIL_CONFIRMATION')),
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION¶': bool(env('USERNAME_CHANGED_EMAIL_CONFIRMATION')),
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
@@ -656,7 +658,7 @@ EMAIL_PORT = env('EMAIL_PORT')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
-
+EMAIL_USE_SSL = False
 
 # Jazzmin Settings
 JAZZMIN_SETTINGS = {
