@@ -31,5 +31,5 @@ Casty is an innovative app designed to revolutionize the casting process by brin
     ```
 6. Run django server, then got the local [url](http://127.0.0.1:8000/):
     ```shell
-    python manage.pu runserver 
+    python manage.py runserver 
     ```
