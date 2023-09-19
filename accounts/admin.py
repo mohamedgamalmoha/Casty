@@ -3,6 +3,9 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from django.utils.translation import gettext_lazy as _, ngettext
 
+from djmoney.contrib.exchange.models import Rate
+from djmoney.contrib.exchange.admin import RateAdmin
+
 from .models import User
 from .sites import admin_site
 
@@ -64,5 +67,6 @@ class CustomUserAdmin(UserAdmin):
     activate_users.short_description = _('Activate selected Users')
 
 
+admin_site.register(Rate, RateAdmin)
 admin_site.register(Group, GroupAdmin)
 admin_site.register(User, CustomUserAdmin)

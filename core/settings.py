@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_spectacular',
     'djmoney',
+    'djmoney.contrib.exchange',
     'celery',
 
     # Custom apps
@@ -832,6 +833,9 @@ CURRENCY_CHOICES = [
     ('EUR', _('EUR €')),
     ('EGP', _('EGP £')),
 ]
+EXCHANGE_BACKEND = env('EXCHANGE_BACKEND')
+OPEN_EXCHANGE_RATES_APP_ID = env('OPEN_EXCHANGE_RATES_APP_ID')
+OPEN_EXCHANGE_RATES_URL = f'https://openexchangerates.org/latest.json?symbols={",".join(CURRENCIES)}'
 
 
 # Celery Configuration Options
