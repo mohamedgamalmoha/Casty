@@ -839,7 +839,8 @@ OPEN_EXCHANGE_RATES_URL = f'https://openexchangerates.org/latest.json?symbols={"
 
 
 # Celery Configuration Options
-CELERY_EMAIL_USE = False
+CELERY_EMAIL_USE = True  # for custom use, setting it to True enables sending email using celery
+CELERY_OPEN_EXCHANGE_RATES_ADD = True  # for custom use, setting it to True enables periodic function calls
 CELERY_TIMEZONE = TIME_ZONE
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
