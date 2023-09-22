@@ -48,7 +48,7 @@ def is_model_dict(dct):
     return meta.get('app_label', None) and meta.get('object_name', None)
 
 
-def process_context_with_request(context, request):
+def process_context_with_request(context, request, url_name=None):
     con = context.copy()
 
     # Convert each model instance to dictionary
@@ -65,8 +65,9 @@ def process_context_with_request(context, request):
         'protocol': 'https' if request.is_secure() else 'http'
     })
 
-    # Set url name from request, it is used to get the target email class
-    con['url_name'] = request.resolver_match.url_name
+    # Set url name from request, in case url_name parameter is being None.
+    # It is used to get the target email class handler
+    con['url_name'] = url_name or request.resolver_match.url_name
     return con
 
 
