@@ -8,6 +8,7 @@ from djmoney.contrib.exchange.admin import RateAdmin
 
 from .models import User
 from .sites import admin_site
+from .wrapper import EmailWrapper
 
 
 class CustomUserAdmin(UserAdmin):
@@ -36,6 +37,8 @@ class CustomUserAdmin(UserAdmin):
 
     def deactivate_users(self, request, queryset):
         updated = queryset.filter(is_active=True).update(is_active=False)
+        for user in updated:
+            EmailWrapper(request, user, url_name='user-activation').send(user)
         self.message_user(
             request,
             _(
@@ -52,6 +55,8 @@ class CustomUserAdmin(UserAdmin):
 
     def activate_users(self, request, queryset):
         updated = queryset.filter(is_active=False).update(is_active=True)
+        for user in updated:
+            EmailWrapper(request, user, url_name='user-confirmation').send(user)
         self.message_user(
             request,
             _(
