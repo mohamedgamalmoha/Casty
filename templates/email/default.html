@@ -1,0 +1,13 @@
+{% load i18n %}
+
+{% block subject %}
+    {% blocktrans %}{{ site_name }} - {{ subject }} !!{% endblocktrans %}
+{% endblock %}
+
+{% block text_body %}
+    {{ body }}
+{% endblock text_body %}
+
+{% block html_body %}
+    <p>{{ body }}</p>
+{% endblock html_body %}
