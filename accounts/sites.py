@@ -4,6 +4,8 @@ from django.utils.functional import LazyObject
 from django.template.response import TemplateResponse
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from .views import SendEmailView
+
 
 class CustomAdminSite(AdminSite):
     final_catch_all_view = False
@@ -25,10 +27,19 @@ class CustomAdminSite(AdminSite):
 
         return TemplateResponse(request, "admin/charts.html", context)
 
+    def send_email(self, request, extra_context=None):
+        defaults = {
+            'extra_context': {**self.each_context(request), **(extra_context or {})},
+            'template_name': 'admin/send_email.html'
+        }
+        request.current_app = self.name
+        return SendEmailView.as_view(**defaults)(request)
+
     def get_urls(self):
         urlpatterns = super().get_urls()
         urlpatterns += [
             path("charts/", self.charts, name="charts"),
+            path("send-email/", self.send_email, name="send_email"),
         ]
         return urlpatterns
 
