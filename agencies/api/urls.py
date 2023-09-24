@@ -10,7 +10,7 @@ app_name = 'agencies'
 router = routers.DefaultRouter()
 router.register(r'agency', AgencyViewSet, basename='agency')
 router.register(r'prev-work', PreviousWorkViewSet, basename='work')
-router.register(r'images', AgencyImageViewSet, basename='images')
+router.register(r'agency-images', AgencyImageViewSet, basename='images')
 
 urlpatterns = [
     path('', include(router.urls), name='profile_routes'),
