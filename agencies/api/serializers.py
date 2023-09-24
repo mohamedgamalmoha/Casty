@@ -25,7 +25,13 @@ class AgencySerializer(FlexFieldsModelSerializer):
         exclude = ('following_models', 'following_agencies')
         read_only_fields = ('id', 'user', 'is_authorized', 'create_at', 'update_at')
         expandable_fields = {
-            'works': (PreviousWorkSerializer, {'many': True, 'read_only': True}),
+            'user': ('accounts.api.serializers.CustomUserSerializer', {'many': False, 'read_only': True,
+                                                                       'omit': ['agency']}),
+            'works': ('agencies.api.serializers.PreviousWorkSerializer', {'many': True, 'read_only': True}),
+            'images': ('agencies.api.serializers.AgencyImageSerializer', {'many': True, 'read_only': True}),
+            'contracts': ('contracts.api.serializers.ContractSerializer', {'many': True, 'read_only': True}),
+            'solo_contracts': ('contracts.api.serializers.SoloContractSerializer', {'many': True, 'read_only': True}),
+            'rates': ('reviews.api.serializers.RateSerializer', {'many': True, 'read_only': True}),
         }
 
 

@@ -54,9 +54,15 @@ class ProfileSerializer(FlexFieldsModelSerializer):
         expandable_fields = {
             'user': ('accounts.api.serializers.CustomUserSerializer', {'many': False, 'read_only': True,
                                                                        'omit': ['profile']}),
+            'languages': ('profiles.api.serializers.LanguageSerializer', {'many': True, 'read_only': True}),
+            'skills': ('profiles.api.serializers.SocialLinkSerializer', {'many': True, 'read_only': True}),
             'links': ('profiles.api.serializers.SocialLinkSerializer', {'many': True, 'read_only': True}),
             'experiences': ('profiles.api.serializers.PreviousExperienceSerializer', {'many': True, 'read_only': True}),
-            'images':  ('profiles.api.serializers.ProfileImageSerializer', {'many': True, 'read_only': True})
+            'images':  ('profiles.api.serializers.ProfileImageSerializer', {'many': True, 'read_only': True}),
+            'contract_requests': ('contracts.api.serializers.ContractRequestSerializer', {'many': True,
+                                                                                          'read_only': True}),
+            'requests': ('contracts.api.serializers.SoloContractSerializer', {'many': True, 'read_only': True}),
+            'rates': ('reviews.api.serializers.RateSerializer', {'many': True, 'read_only': True}),
         }
 
     def to_representation(self, instance):

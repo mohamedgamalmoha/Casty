@@ -24,6 +24,10 @@ class DeleteEmail(AttachMainInfoEmailMixin, BaseEmailMessage):
     template_name = "email/delete.html"
 
 
+class DefaultEmail(AttachMainInfoEmailMixin, BaseEmailMessage):
+    template_name = "email/default.html"
+
+
 class CustomActivationEmail(AttachMainInfoEmailMixin, ActivationEmail):
     ...
 
@@ -57,4 +61,5 @@ URL_EMAIL_MAP = {
     "user-username-reset": UsernameResetEmail,
     "user-username-changed-confirmation": UsernameChangedConfirmationEmail,
     "user-delete": DeleteEmail,
+    'default': DeleteEmail
 }
