@@ -10,6 +10,7 @@ from rest_framework.viewsets import GenericViewSet, ModelViewSet, ReadOnlyModelV
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListModelMixin, DestroyModelMixin
 
 from rest_flex_fields import is_expanded
+from rest_flex_fields.filter_backends import FlexFieldsDocsFilterBackend
 from drf_spectacular.utils import extend_schema
 
 from accounts.api.permissions import IsModelUser, IsDirectorUser
@@ -88,6 +89,7 @@ class ProfileViewSet(ProhibitedActionsMixin, AllowAnyInSafeMethodOrCustomPermiss
     serializer_class = ProfileSerializer
     filterset_class = ProfileFilter
     permission_classes = [IsModelUser]
+    filter_backends = GenericViewSet.filter_backends + [FlexFieldsDocsFilterBackend]
     save_method_permission_classes = [IsAuthenticated]
     follow_permission_classes = [IsModelUser | IsDirectorUser]
     prohibited_actions = [

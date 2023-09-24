@@ -8,6 +8,7 @@ from djoser.conf import settings
 from djoser.utils import logout_user
 from djoser.views import UserViewSet as DjoserUserViewSet
 from djoser.compat import get_user_email, get_user_email_field_name
+from rest_flex_fields.filter_backends import FlexFieldsDocsFilterBackend
 
 from accounts import signals
 from accounts.models import User
@@ -19,6 +20,7 @@ from .mixins import DestroyMethodNotAllowedMixin, ProhibitedActionsMixin
 class UserViewSet(ProhibitedActionsMixin, DestroyMethodNotAllowedMixin, DjoserUserViewSet):
     queryset = User.objects.exclude_admin()
     filterset_class = UserFilter
+    filter_backends = DjoserUserViewSet.filter_backends + [FlexFieldsDocsFilterBackend]
     prohibited_actions = [
         ('put', 'update'),
         ('patch', 'partial_update'),
