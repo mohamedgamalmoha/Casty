@@ -8,18 +8,22 @@ from djoser.conf import settings
 from djoser.utils import logout_user
 from djoser.views import UserViewSet as DjoserUserViewSet
 from djoser.compat import get_user_email, get_user_email_field_name
-from drf_spectacular.utils import extend_schema, OpenApiResponse
 
 from accounts import signals
 from accounts.models import User
 from accounts.utils import is_non_admin_user
 from .filters import UserFilter
-from .mixins import DestroyMethodNotAllowedMixin
+from .mixins import DestroyMethodNotAllowedMixin, ProhibitedActionsMixin
 
 
-class UserViewSet(DestroyMethodNotAllowedMixin, DjoserUserViewSet):
+class UserViewSet(ProhibitedActionsMixin, DestroyMethodNotAllowedMixin, DjoserUserViewSet):
     queryset = User.objects.exclude_admin()
     filterset_class = UserFilter
+    prohibited_actions = [
+        ('put', 'update'),
+        ('patch', 'partial_update'),
+        ('delete', 'destroy')
+    ]
 
     def get_queryset(self):
         user = self.request.user
@@ -34,15 +38,6 @@ class UserViewSet(DestroyMethodNotAllowedMixin, DjoserUserViewSet):
             to = [get_user_email(instance)]
             settings.EMAIL.delete(self.request, context).send(to)
         instance.delete()
-
-    @extend_schema(responses={status.HTTP_405_METHOD_NOT_ALLOWED:
-                              OpenApiResponse(description='Delete user is not allowed')})
-    def destroy(self, request, *args, **kwargs):
-        return super(UserViewSet, self).destroy(request, *args, **kwargs)
-
-    @action(["get", "put", "patch"], detail=False)
-    def me(self, request, *args, **kwargs):
-        return super().me(request, *args, **kwargs)
 
     @action(["post"], detail=False, url_path=f"set_{User.USERNAME_FIELD}")
     def set_username(self, request, *args, **kwargs):

@@ -13,8 +13,8 @@ from rest_flex_fields import is_expanded
 from drf_spectacular.utils import extend_schema
 
 from accounts.api.permissions import IsModelUser, IsDirectorUser
-from accounts.api.mixins import AllowAnyInSafeMethodOrCustomPermissionMixin
 from accounts.utils import is_model_user, is_owner, get_user_associated_model
+from accounts.api.mixins import AllowAnyInSafeMethodOrCustomPermissionMixin, ProhibitedActionsMixin
 from profiles.models import Skill, Language, Profile, SocialLink, PreviousExperience, ProfileImage
 from .filters import ProfileFilter, PreviousExperienceFilter
 from .serializers import (SkillSerializer, LanguageSerializer, ProfileSerializer, SocialLinkSerializer,
@@ -82,14 +82,18 @@ class PreviousExperienceViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, Mod
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
-class ProfileViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, RetrieveModelMixin, UpdateModelMixin, ListModelMixin,
-                     GenericViewSet):
+class ProfileViewSet(ProhibitedActionsMixin, AllowAnyInSafeMethodOrCustomPermissionMixin, RetrieveModelMixin,
+                     UpdateModelMixin, ListModelMixin, GenericViewSet):
     queryset = Profile.objects.active()
     serializer_class = ProfileSerializer
     filterset_class = ProfileFilter
     permission_classes = [IsModelUser]
     save_method_permission_classes = [IsAuthenticated]
     follow_permission_classes = [IsModelUser | IsDirectorUser]
+    prohibited_actions = [
+        ('put', 'update'),
+        ('patch', 'partial_update'),
+    ]
 
     def get_queryset(self):
         queryset = super().get_queryset()

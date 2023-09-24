@@ -14,8 +14,8 @@ from drf_spectacular.utils import extend_schema
 
 from agencies.models import Agency, PreviousWork, AgencyImage
 from accounts.api.permissions import IsDirectorUser, IsModelUser
-from accounts.api.mixins import AllowAnyInSafeMethodOrCustomPermissionMixin
 from accounts.utils import is_director_user, is_owner, get_user_associated_model
+from accounts.api.mixins import AllowAnyInSafeMethodOrCustomPermissionMixin, ProhibitedActionsMixin
 from .filters import AgencyFilter, PreviousWorkFilter
 from .serializers import AgencySerializer, PreviousWorkSerializer, AgencyImageSerializer
 
@@ -40,19 +40,21 @@ class PreviousWorkViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, ModelView
     @extend_schema(responses={200: PreviousWorkSerializer(many=True)})
     @action(detail=False, methods=["GET"], name='Get My Previous Works')
     def me(self, request, *args, **kwargs):
-        if request.method == "GET":
-            return self.list(request, *args, **kwargs)
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        return self.list(request, *args, **kwargs)
 
 
-class AgencyViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, RetrieveModelMixin, UpdateModelMixin, ListModelMixin,
-                    GenericViewSet):
+class AgencyViewSet(ProhibitedActionsMixin, AllowAnyInSafeMethodOrCustomPermissionMixin, RetrieveModelMixin,
+                    UpdateModelMixin, ListModelMixin, GenericViewSet):
     queryset = Agency.objects.all()
     serializer_class = AgencySerializer
     filterset_class = AgencyFilter
     permission_classes = [IsDirectorUser]
     save_method_permission_classes = [IsAuthenticated]
     follow_permission_classes = [IsModelUser | IsDirectorUser]
+    prohibited_actions = [
+        ('put', 'update'),
+        ('patch', 'partial_update'),
+    ]
 
     def get_queryset(self):
         queryset = super(AgencyViewSet, self).get_queryset()
@@ -161,6 +163,4 @@ class AgencyImageViewSet(AllowAnyInSafeMethodOrCustomPermissionMixin, UpdateMode
     @extend_schema(responses={200: AgencyImageSerializer(many=True)})
     @action(detail=False, methods=["GET"], name='Get My Images')
     def me(self, request, *args, **kwargs):
-        if request.method == "GET":
-            return self.list(request, *args, **kwargs)
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        return self.list(request, *args, **kwargs)
