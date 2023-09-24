@@ -1,5 +1,7 @@
 from typing import List, Tuple
 
+from django.utils.decorators import classonlymethod
+
 from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.permissions import AllowAny, SAFE_METHODS
 
@@ -81,3 +83,47 @@ class ThrottleActionsWithMethodsMixin:
         if not ((self.action, self.request.method) in self.throttle_actions):
             return []
         return super().get_throttles()
+
+
+class ProhibitedActionsMixin:
+    """
+    Mixin class to restrict specific actions in views.
+
+    This Mixin provides a mechanism to filter out specific actions
+    from being available in the view. The actions to be prohibited are
+    defined in `prohibited_actions`.
+
+    Attributes:
+        - prohibited_actions (List[Tuple[str, str]]): A list of tuples where each tuple represents
+            an action to be prohibited. By default, it's set to None which means no actions are prohibited.
+            Each tuple consists of two strings:
+                1. The HTTP method in lowercase (e.g., 'get', 'post').
+                2. The corresponding view function name (e.g., 'list', 'create').
+            An example tuple might be `('get', 'list')`, where 'get' is the HTTP method and
+            'list' is the name of the view function.
+
+    Methods:
+        as_view: Filters out the prohibited actions from the view and then calls the `as_view`
+            method of the super class.
+    """
+
+    prohibited_actions: List[Tuple[str, str]] = None
+
+    @classmethod
+    def as_view(cls, actions=None, **initkwargs):
+        """
+        Overrides the as_view method to filter out the prohibited actions.
+
+        If `prohibited_actions` is defined, this method filters out the prohibited actions
+        from the provided `actions` dictionary and then calls the `as_view` method of the super class.
+
+        Args:
+            actions (dict, optional): A dictionary of actions. Defaults to None.
+            **initkwargs: Arbitrary keyword arguments.
+
+        Returns:
+            function: The view function after filtering the prohibited actions.
+        """
+        if cls.prohibited_actions is not None:
+            actions = dict(filter(lambda item: item not in cls.prohibited_actions, actions.items()))
+        return super().as_view(actions, **initkwargs)
