@@ -4,8 +4,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 from djoser.compat import get_user_email
 
-from .email import DefaultEmail
 from .forms import SendEmailForm
+from .wrapper import EmailWrapper
 
 
 class SendEmailView(SuccessMessageMixin, FormView):
@@ -21,7 +21,8 @@ class SendEmailView(SuccessMessageMixin, FormView):
             'subject': form.cleaned_data['subject'],
             'body': form.cleaned_data['body']
         }
-        # TODO: Integrate with async-proj branch to use EmailWrapper.
-        to = list(map(get_user_email, users))
-        DefaultEmail(self.request, context).send(to)
+        for user in users:
+            context['user'] = user
+            to = [get_user_email(user)]
+            EmailWrapper(self.request, context, url_name='default').send(to)
         return super().form_valid(form)

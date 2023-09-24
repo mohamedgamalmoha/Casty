@@ -3,6 +3,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from django.utils.translation import gettext_lazy as _, ngettext
 
+from djoser.compat import get_user_email
 from djmoney.contrib.exchange.models import Rate
 from djmoney.contrib.exchange.admin import RateAdmin
 
@@ -38,7 +39,9 @@ class CustomUserAdmin(UserAdmin):
     def deactivate_users(self, request, queryset):
         updated = queryset.filter(is_active=True).update(is_active=False)
         for user in updated:
-            EmailWrapper(request, user, url_name='user-activation').send(user)
+            context = {'user': user}
+            to = [get_user_email(user)]
+            EmailWrapper(request, context, url_name='user-activation').send(to)
         self.message_user(
             request,
             _(
@@ -56,7 +59,9 @@ class CustomUserAdmin(UserAdmin):
     def activate_users(self, request, queryset):
         updated = queryset.filter(is_active=False).update(is_active=True)
         for user in updated:
-            EmailWrapper(request, user, url_name='user-confirmation').send(user)
+            context = {'user': user}
+            to = [get_user_email(user)]
+            EmailWrapper(request, context, url_name='user-confirmation').send(to)
         self.message_user(
             request,
             _(
