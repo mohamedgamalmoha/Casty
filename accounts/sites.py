@@ -10,7 +10,7 @@ from .views import SendEmailView
 class CustomAdminSite(AdminSite):
     final_catch_all_view = False
 
-    def charts(self, request, extra_context=None):
+    def charts_view(self, request, extra_context=None):
         app_list = self.get_app_list(request)
 
         refresh = RefreshToken.for_user(request.user)
@@ -27,7 +27,7 @@ class CustomAdminSite(AdminSite):
 
         return TemplateResponse(request, "admin/charts.html", context)
 
-    def send_email(self, request, extra_context=None):
+    def send_email_view(self, request, extra_context=None):
         defaults = {
             'extra_context': {**self.each_context(request), **(extra_context or {})},
             'template_name': 'admin/send_email.html'
@@ -38,8 +38,8 @@ class CustomAdminSite(AdminSite):
     def get_urls(self):
         urlpatterns = super().get_urls()
         urlpatterns += [
-            path("charts/", self.charts, name="charts"),
-            path("send-email/", self.send_email, name="send_email"),
+            path("charts/", self.charts_view, name="charts"),
+            path("send-email/", self.send_email_view, name="send_email"),
         ]
         return urlpatterns
 
