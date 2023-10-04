@@ -1,12 +1,8 @@
-from django.conf import settings
 from django.db.models.signals import pre_save, post_save
 
-from .settings import SETTING_NAME
 from .utils import get_image_fields
 from .tasks import detect_model_image
-
-
-curr_settings = getattr(settings, SETTING_NAME)
+from .settings import processing_settings
 
 
 def image_detect_pre_save(sender, instance, created, **kwargs):
@@ -29,6 +25,6 @@ def image_detect_post_save(sender, instance, created, **kwargs):
 
 
 def connect_image_detect_signals_to_models():
-    for model in curr_settings.MODELS_WITH_IMAGE:
+    for model in processing_settings.MODELS_WITH_IMAGE:
         pre_save.connect(image_detect_pre_save, sender=model)
         post_save.connect(image_detect_post_save, sender=model)

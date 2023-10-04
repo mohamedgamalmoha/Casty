@@ -1,5 +1,7 @@
+import copy
+from collections import namedtuple
+
 from django.conf import settings
-from django.test.signals import setting_changed
 
 from rest_framework.settings import perform_import
 
@@ -27,23 +29,19 @@ def requires_import(setting) -> bool:
     return setting in IMPORT_STRINGS
 
 
-def load_settings():
+def get_settings():
+    defaults = copy.deepcopy(DEFAULTS)
     if hasattr(settings, SETTING_NAME):
-        DEFAULTS.update(getattr(settings, SETTING_NAME))
+        defaults.update(getattr(settings, SETTING_NAME))
 
-    processing_settings = {}
-    for key, val in DEFAULTS.items():
+    _settings = {}
+    for key, val in defaults.items():
         if requires_import(key):
             val = perform_import(val, key)
-        processing_settings[key] = val
+        _settings[key] = val
 
-    setattr(settings, SETTING_NAME, processing_settings)
-
-
-def reload_api_settings(*args, **kwargs):
-    setting = kwargs['setting']
-    if setting == SETTING_NAME:
-        load_settings()
+    Setting = namedtuple("Data", _settings.keys())
+    return Setting(**_settings)
 
 
-setting_changed.connect(reload_api_settings)
+processing_settings = get_settings()
