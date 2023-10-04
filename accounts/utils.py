@@ -39,21 +39,21 @@ def is_director_user(user: User) -> bool:
     return _is_instance_user(user, Agency) and _is_user_with_role(user, RoleChoices.DIRECTOR)
 
 
+def get_owner(obj: Type[models.Model]) -> bool:
+    """Get the owner user of the object"""
+    if hasattr(obj, 'user'):
+        return obj.user
+    if hasattr(obj, 'profile') and isinstance(obj.profile, Profile) and obj.profile is not None:
+        return obj.profile.user
+    if hasattr(obj, 'agency') and isinstance(obj.agency, Agency) and obj.agency is not None:
+        return obj.agency
+    if isinstance(obj, ContractRequest) and obj.contract is not None:
+        return obj.contract.agency.user
+
+
 def is_owner(user: User, obj: Type[models.Model]) -> bool:
     """Check whether the user is the owner of the object"""
-    if hasattr(obj, 'user'):
-        if getattr(obj, 'user') == user:
-            return True
-    if is_model_user(user) and hasattr(obj, 'profile'):
-        if getattr(obj, 'profile', None) == user.profile:
-            return True
-    if is_director_user(user) and hasattr(obj, 'agency'):
-        if getattr(obj, 'agency', None) == user.agency:
-            return True
-    if is_director_user(user) and isinstance(obj, ContractRequest):
-        if obj.contract.agency == user.agency:
-            return True
-    return False
+    return get_owner(obj) == user
 
 
 def get_user_associated_model(user: User) -> Union[Profile, Agency, None]:
