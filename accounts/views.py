@@ -24,5 +24,5 @@ class SendEmailView(SuccessMessageMixin, FormView):
         for user in users:
             context['user'] = user
             to = [get_user_email(user)]
-            EmailWrapper(self.request, context, url_name='default').send(to)
+            EmailWrapper(self.request, context, email_map_name='default').send(to)
         return super().form_valid(form)

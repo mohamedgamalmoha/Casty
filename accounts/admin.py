@@ -41,7 +41,7 @@ class CustomUserAdmin(UserAdmin):
         for user in updated:
             context = {'user': user}
             to = [get_user_email(user)]
-            EmailWrapper(request, context, url_name='user-activation').send(to)
+            EmailWrapper(request, context, email_map_name='user-activation').send(to)
         self.message_user(
             request,
             _(
@@ -61,7 +61,7 @@ class CustomUserAdmin(UserAdmin):
         for user in updated:
             context = {'user': user}
             to = [get_user_email(user)]
-            EmailWrapper(request, context, url_name='user-confirmation').send(to)
+            EmailWrapper(request, context, email_map_name='user-confirmation').send(to)
         self.message_user(
             request,
             _(
