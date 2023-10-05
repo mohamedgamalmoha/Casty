@@ -15,7 +15,9 @@ from datetime import timedelta
 
 import environ
 from rest_framework import ISO_8601
+from kombu.utils.json import register_type
 from django.utils.translation import gettext_lazy as _
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -851,3 +853,10 @@ CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
+
+# Register Celery Types
+from .utils import CELERY_TYPES
+
+for typ in CELERY_TYPES:
+    register_type(*typ)
