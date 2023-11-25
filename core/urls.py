@@ -43,6 +43,9 @@ urlpatterns = [
     path('api/', include('info.api.urls', namespace='info')),
     path('api/', include('reviews.api.urls', namespace='reviews')),
     path('api/', include('stats.api.urls', namespace='stats')),
+
+    # Custom Views
+    path('account/', include('accounts.urls')),
 ]
 
 if settings.DEBUG:
